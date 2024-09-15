@@ -1,0 +1,47 @@
+.switch {
+  display: flex;
+  align-items: center;
+  border: 1px solid #000;
+  border-radius: 20px;
+  padding: 2px;
+  height: 20px;
+  width: 40px;
+  cursor: pointer;
+}
+
+.switch_button {
+    background-color: #000;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+}
+
+.slidein {
+    animation: slidein 300ms linear;
+    animation-fill-mode: forwards;
+}
+
+.slideout {
+  animation: slideout 300ms linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slidein {
+  from {
+    transform: translateX(0px);
+  }
+
+  to {
+    transform: translateX(20px);
+  }
+}
+
+@keyframes slideout {
+  from {
+    transform: translateX(20px);
+  }
+
+  to {
+    transform: translateX(0px);
+  }
+}

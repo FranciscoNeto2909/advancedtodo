@@ -1,0 +1,11 @@
+.app {
+height: 100vh;
+width: 100vw;
+ display: grid;
+ grid-template-columns: 200px 1fr;
+}
+
+.app_navigation{
+    background-color: var(--dark_theme_primary);
+    color: var(--dark_font);
+}

@@ -4,4 +4,13 @@
   box-sizing: border-box;
   list-style: none;
   text-decoration: none;
+  color: #000;
+}
+
+:root{
+  --dark_theme_primary:#010818;
+  --dark_theme_secondary:#010818;
+  --dark_font:#fff;
+  --ligth_theme:#fff;
+  --ligth_font:#000;
 }

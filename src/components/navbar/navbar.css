@@ -1,21 +1,29 @@
 .navbar {
   height: 100vh;
-  padding: 20px 0;
+  padding: 10px 0;
   display: flex;
   flex-direction: column;
   position: relative;
 }
 .navbar_logo {
-    align-self: center;
-    margin-bottom: 24px;
+  display: flex;
+  align-self: center;
+  margin-bottom: 24px;
+}
+
+.navbar_logo a {
+  max-width: 50%;
+}
+
+.navbar_logo_img {
+  width: 100%;
 }
 .navbar_links {
 }
 .navbar_footer {
-  display: flex;
   width: 100%;
+  display: flex;
   justify-content: center;
-  gap: 20px;
   position: absolute;
   bottom: 14px;
 }

@@ -27,3 +27,11 @@
   position: absolute;
   bottom: 14px;
 }
+
+.navbar_footer_button{
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}

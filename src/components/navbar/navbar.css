@@ -1,37 +1,50 @@
 .navbar {
   height: 100vh;
-  padding: 10px 0;
+  padding: 10px 20px;
   display: flex;
   flex-direction: column;
   position: relative;
 }
 .navbar_logo {
   display: flex;
-  align-self: center;
+  justify-content: center;
   margin-bottom: 24px;
 }
 
 .navbar_logo a {
-  max-width: 50%;
+  max-width: 60%;
 }
 
 .navbar_logo_img {
   width: 100%;
 }
-.navbar_links {
+.navbar_menu {
+  text-transform: uppercase;
+}
+.navbar_list{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.navbar_list_item a{
+  color: #fff;
 }
 .navbar_footer {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   position: absolute;
   bottom: 14px;
+  right: 14px;
 }
 
 .navbar_footer_button{
+  cursor: pointer;
   background-color: transparent;
   border: none;
   color: #fff;
   display: flex;
   align-items: center;
+  gap: 4px;
+  text-transform: uppercase;
 }

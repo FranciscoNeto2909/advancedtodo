@@ -2,10 +2,8 @@ import { Link } from "react-router-dom";
 import { AiOutlineLogout, AiOutlineLogin } from "react-icons/ai";
 import logo from "../../images/logo.png";
 import "./navbar.css";
-import { useState } from "react";
 
-export default function Navbar({isLogged, handleLogin}) {
-
+export default function Navbar({ isLogged, handleLogin }) {
   return (
     <div className="navbar">
       <div className="navbar_logo">

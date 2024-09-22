@@ -1,11 +1,9 @@
 .app {
-height: 100vh;
-width: 100vw;
- display: grid;
- grid-template-columns: 250px 1fr;
+  display: grid;
+  grid-template-columns: 250px 1fr;
 }
 
-.app_navigation{
-    background-color: var(--dark_primary);
-    color: var(--dark_font);
+.app_navigation {
+  background-color: var(--primary);
+  color: var(--font);
 }

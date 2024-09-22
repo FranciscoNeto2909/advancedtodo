@@ -1,0 +1,48 @@
+.task {
+  height: 200px;
+  width: 300px;
+  padding: 52px 12px 8px;
+  border-radius: 16px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  background-color: var(--box);
+}
+
+.task:hover {
+  box-shadow: 0 0 8px #ffffff50;
+}
+
+.task_title {
+  font-size: 24px;
+  text-align: center;
+}
+
+.task_buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.task_icon_check {
+  fill: #0f0;
+  border: 1px solid #0f0;
+  border-radius: 4px;
+}
+
+.task_icon_check:hover,
+.task_icon_edit:hover,
+.task_icon_close:hover {
+  transform: scale(1.08);
+}
+
+.task_icon_edit {
+  fill: #81d4fa;
+  border: 1px solid #81d4fa;
+  border-radius: 4px;
+}
+
+.task_icon_close {
+  fill: #f00;
+  border: 1px solid #f00;
+  border-radius: 4px;
+}

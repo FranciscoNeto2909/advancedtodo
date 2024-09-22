@@ -7,10 +7,9 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-:root{
-  --dark_primary:#010818;
-  --dark_secondary:#010818;
-  --dark_font:#81d4fa;
-  --ligth_theme:#fff;
-  --ligth_font:#000;
+:root {
+  --primary: #0f0f0f;
+  --secondary: #1f1f1f;
+  --box: #1f1f1f;
+  --font: #81d4fa;
 }

@@ -8,9 +8,9 @@
 }
 
 :root{
-  --dark_theme_primary:#010818;
-  --dark_theme_secondary:#010818;
-  --dark_font:#fff;
+  --dark_primary:#010818;
+  --dark_secondary:#010818;
+  --dark_font:#81d4fa;
   --ligth_theme:#fff;
   --ligth_font:#000;
 }

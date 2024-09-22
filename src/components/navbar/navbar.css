@@ -4,6 +4,8 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  background-color: var(--dark_primary);
+  box-shadow: 2px 0 4px #000;
 }
 .navbar_logo {
   display: flex;

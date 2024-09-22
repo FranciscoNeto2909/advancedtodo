@@ -6,6 +6,6 @@ width: 100vw;
 }
 
 .app_navigation{
-    background-color: var(--dark_theme_primary);
+    background-color: var(--dark_primary);
     color: var(--dark_font);
 }

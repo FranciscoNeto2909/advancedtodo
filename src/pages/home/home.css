@@ -1,0 +1,35 @@
+.home{
+    height: 100vh;
+    background-color: var(--dark_primary);
+    color: #fff;
+}
+.home_header{
+    height: 66px;
+    width: 100%;
+    padding: 0 24px;
+    display:flex;
+    align-items: center;
+    background-color: var(--dark_primary);
+}
+.home_search{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.home_search_input{
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid#81d4fa;
+    outline: none;
+    color: #fff;
+}
+
+.task_search_icon{
+    color: #fff;
+}
+
+.home_body{
+    height: auto;
+    padding: 0 24px;
+}

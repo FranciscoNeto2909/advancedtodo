@@ -1,15 +1,11 @@
 import { Link } from "react-router-dom";
-import { AiOutlineLogout,AiOutlineLogin } from "react-icons/ai";
+import { AiOutlineLogout, AiOutlineLogin } from "react-icons/ai";
 import logo from "../../images/logo.png";
 import "./navbar.css";
 import { useState } from "react";
 
-export default function Navbar() {
-  const [islogged, setIslogged] = useState(false);
+export default function Navbar({isLogged, handleLogin}) {
 
-  function handleClic() {
-    setIslogged(!islogged)
-  }
   return (
     <div className="navbar">
       <div className="navbar_logo">
@@ -18,23 +14,29 @@ export default function Navbar() {
         </Link>
       </div>
       <div className="navbar_menu">
-        <ul className="navbar_list">
-          <li className="navbar_list_item">
-            <Link to="/newTask">new task</Link>
-          </li>
-         { islogged && <li className="navbar_list_item">
-            <Link to="/users">users</Link>
-          </li>}
-        </ul>
+        {isLogged && (
+          <ul className="navbar_list">
+            <li className="navbar_list_item">
+              <Link to="/newTask">new task</Link>
+            </li>
+            <li className="navbar_list_item">
+              <Link to="/users">users</Link>
+            </li>
+          </ul>
+        )}
       </div>
       <div className="navbar_footer">
-        {!islogged ? (
-          <Link to="/login" className="navbar_footer_button" onClick={handleClic}>
+        {!isLogged ? (
+          <Link
+            to="/login"
+            className="navbar_footer_button"
+            onClick={handleLogin}
+          >
             <span>Login</span>
             <AiOutlineLogin size={20} />
           </Link>
         ) : (
-          <button className="navbar_footer_button" onClick={handleClic}>
+          <button className="navbar_footer_button" onClick={handleLogin}>
             <span>Logout</span>
             <AiOutlineLogout size={20} />
           </button>

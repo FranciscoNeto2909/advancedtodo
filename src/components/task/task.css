@@ -10,7 +10,8 @@
 }
 
 .task:hover {
-  box-shadow: 0 0 8px #ffffff50;
+  box-shadow: 0 0 6px #81d4fa;
+  transition: 300ms ease-in-out;
 }
 
 .task_title {

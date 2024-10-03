@@ -8,19 +8,25 @@ export default function Login() {
   return (
     <div className="login">
       <div className="login_header">
-        <button onClick={() => navigate(-1)} className="login_back_button">
-          <AiOutlineArrowLeft size={24} />
+        <button onClick={() => navigate("/")} className="login_back_button">
+          <AiOutlineArrowLeft size={26} />
         </button>
       </div>
       <div className="login_body">
         <h2>Conecte-se para acessar suas tarefas</h2>
         <div className="login_form_container">
-          <form className="login_form" action="submit" onSubmit={() => {navigate("/")}}>
+          <form
+            className="login_form"
+            action="submit"
+            onSubmit={() => {
+              navigate("/");
+            }}
+          >
             <div className="login_item">
-              <label className="login_item_title" htmlFor="name">
-                Nome
+              <label className="login_item_title" htmlFor="email">
+                Email
               </label>
-              <Input type="text" id="name" />
+              <Input type="email" id="email" />
             </div>
             <div className="login_item">
               <label className="login_item_title" htmlFor="password">
@@ -31,7 +37,9 @@ export default function Login() {
             <div className="login_buttons">
               <button className="login_button">Login</button>
               <span>Não tem conta ?</span>
-              <Link className="login_register" to="./register">Cadastrar</Link>
+              <Link className="login_register" to="/register">
+                Cadastrar
+              </Link>
             </div>
           </form>
         </div>

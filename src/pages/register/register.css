@@ -1,0 +1,22 @@
+.register {
+ height: 100vh;
+  background-color: var(--primary);
+  color: #fff;
+  overflow: auto;
+}
+
+.register_header {
+    height: 66px;
+    width: 100%;
+    box-shadow: 0 2px 6px #000000e0;
+    display: flex;
+    background-color: var(--box);
+  }
+
+  .register_back_button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+  }
+  

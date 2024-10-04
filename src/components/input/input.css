@@ -1,10 +1,31 @@
-.input{
-    background-color: transparent;
-    outline: none;
-    border: none;
-    border-bottom: 1px solid #81d4fa;
-    color: #fff;
-    font-size: 20px;
+.input-container {
+  position: relative;
+  display: inline-block;
 }
 
+.input {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  width: 100%;
+  border-bottom: 1px solid #81d4fa;
+  color: #fff;
+  font-size: 20px;
+  outline: none;
+  padding-left: 4px;
+}
 
+.border {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 1px;
+  transition: width 0.5s ease, left 0.5s ease;
+}
+
+.input:focus + .border {
+  width: 100%;
+  left: 0;
+  background-color: blue;
+}

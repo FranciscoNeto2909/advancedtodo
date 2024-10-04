@@ -2,6 +2,7 @@ import Input from "../../components/input/Input";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import "./login.css";
 import { Link, useNavigate } from "react-router-dom";
+import Button from "../../components/button/Button";
 export default function Login() {
   const navigate = useNavigate();
 
@@ -35,11 +36,13 @@ export default function Login() {
               <Input type="password" id="password" />
             </div>
             <div className="login_buttons">
-              <button className="login_button">Login</button>
-              <span>Não tem conta ?</span>
-              <Link className="login_register" to="/register">
-                Cadastrar
-              </Link>
+              <Button className="login_button">Login</Button>
+              <div className="login_register">
+                <span>Não tem conta ?</span>
+                <Link className="login_register_button" to="/register">
+                  Cadastrar
+                </Link>
+              </div>
             </div>
           </form>
         </div>

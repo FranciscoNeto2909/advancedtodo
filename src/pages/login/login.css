@@ -25,7 +25,7 @@
 
 .login_body {
   height: calc(100% - 66px);
-  padding: 52px 24px;
+  padding: 82px 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -50,6 +50,8 @@
 
 .login_buttons {
   display: flex;
+  flex-direction: column;
+  gap: 8px;
   justify-content: space-between;
   align-items: center;
   margin-top: 16px;
@@ -66,11 +68,16 @@
   cursor: pointer;
 }
 
-.login_button:hover{
-    box-shadow: 0 0 6px #81d4fa;
-    transition: 300ms ease-in-out;
+.login_button:hover {
+  box-shadow: 0 0 6px #81d4fa;
+  transition: 300ms ease-in-out;
 }
 
-.login_register{
-    color: #81d4fa;
+.login_register {
+  display: flex;
+  gap: 12px;
+}
+
+.login_register span{
+  font-size: 15px;
 }

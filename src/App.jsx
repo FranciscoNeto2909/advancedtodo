@@ -7,6 +7,7 @@ import Register from "./pages/register/Register";
 import { useState } from "react";
 import "./App.css";
 import Password from "./pages/register/password/Password";
+import Code from "./pages/register/code/Code";
 
 function App() {
   const [isLogged, setIsLogged] = useState(false);
@@ -25,6 +26,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/newTask" element={<NewTask />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/register/code" element={<Code />} />
           <Route path="/register/password" element={<Password />} />
         </Routes>
       </div>

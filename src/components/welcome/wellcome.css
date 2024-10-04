@@ -1,0 +1,27 @@
+.wellcome {
+  padding: 32px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 52px;
+}
+
+.wellcome_itens {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wellcome_item {
+  width: fit-content;
+  padding: 38px 24px;
+  border-radius: 50px;
+  font-size: 20px;
+  color: #42a5f5;
+  background-color: var(--box);
+  box-shadow: 0 0 8px #42a4f5a8;
+}
+
+.item__2,
+.item__4 {
+  align-self: flex-end;
+}

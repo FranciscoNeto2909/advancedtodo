@@ -30,6 +30,8 @@
 }
 
 .home_body {
-  height: auto;
+  height: calc(100% - 66px);
   padding: 24px;
+  display: flex;
+  justify-content: center;
 }

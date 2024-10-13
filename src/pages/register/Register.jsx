@@ -20,7 +20,7 @@ export default function Register() {
           <h2>
             Digite seu nome e email para <br /> receber o codigo de confirmação
           </h2>
-          <form action="" autocomplete="off" className="register_form">
+          <form action="" autoComplete="off" className="register_form">
             <div className="register_item">
               <label htmlFor="name" className="register_title">
                 Name

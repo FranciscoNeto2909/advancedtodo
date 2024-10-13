@@ -18,7 +18,7 @@ export default function Code() {
           <h2>
             Digite o código de confirmação <br /> para continuar seu cadastro
           </h2>
-          <form action="" className="code_form">
+          <form action="" className="code_form" autoComplete="off">
             <div className="code_item">
               <label htmlFor="code" className="code_title">
                 Código

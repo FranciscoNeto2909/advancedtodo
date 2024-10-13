@@ -23,7 +23,7 @@ export default function Password() {
           rapida
         </h2>
         <div className="password_form_container">
-          <form action="" className="password_form" autocomplete="off">
+          <form action="" className="password_form" autoComplete="off">
             <div className="password_item">
               <label htmlFor="pass" className="password_title">
                 Senha
@@ -37,7 +37,7 @@ export default function Password() {
               <Input type="password" id="confirm_pass" />
             </div>
             <div className="password_buttons">
-              <Button>Create account</Button>
+              <Button handleClick={() => {Navigate("/login")}}>Create account</Button>
             </div>
           </form>
         </div>

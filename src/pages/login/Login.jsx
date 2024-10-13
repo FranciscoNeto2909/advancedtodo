@@ -3,9 +3,14 @@ import { AiOutlineArrowLeft } from "react-icons/ai";
 import "./login.css";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/button/Button";
-export default function Login() {
-  const navigate = useNavigate();
 
+export default function Login({ handleLogin }) {
+  const navigate = useNavigate();
+  async function handleSubmit(e) {
+    e.preventDefault();
+    await handleLogin()
+    navigate("/");
+  }
   return (
     <div className="login">
       <div className="login_header">
@@ -17,12 +22,9 @@ export default function Login() {
         <h2>Conecte-se para acessar suas tarefas</h2>
         <div className="login_form_container">
           <form
-            autocomplete="off"
+            autoComplete="off"
             className="login_form"
-            action="submit"
-            onSubmit={() => {
-              navigate("/");
-            }}
+            onSubmit={handleSubmit}
           >
             <div className="login_item">
               <label className="login_item_title" htmlFor="email">

@@ -3,7 +3,7 @@ import { AiOutlineLogout, AiOutlineLogin } from "react-icons/ai";
 import logo from "../../images/logo.png";
 import "./navbar.css";
 
-export default function Navbar({ isLogged, handleLogin }) {
+export default function Navbar({ isLogged, handleLogout }) {
   return (
     <div className="navbar">
       <div className="navbar_logo">
@@ -28,13 +28,12 @@ export default function Navbar({ isLogged, handleLogin }) {
           <Link
             to="/login"
             className="navbar_footer_button"
-            onClick={handleLogin}
           >
             <span>Login</span>
             <AiOutlineLogin size={20} />
           </Link>
         ) : (
-          <button className="navbar_footer_button" onClick={handleLogin}>
+          <button className="navbar_footer_button" onClick={handleLogout}>
             <span>Logout</span>
             <AiOutlineLogout size={20} />
           </button>

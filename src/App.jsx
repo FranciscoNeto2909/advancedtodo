@@ -13,17 +13,20 @@ function App() {
   const [isLogged, setIsLogged] = useState(false);
 
   function handleLogin() {
-    setIsLogged(!isLogged);
-    console.log("login");
+    setIsLogged(true);
+  }
+
+  function handleLogout() {
+    setIsLogged(false);
   }
 
   return (
     <div className="app">
-      <Navbar isLogged={isLogged} handleLogin={handleLogin} />
+      <Navbar isLogged={isLogged} handleLogout={handleLogout} />
       <div className="app_pages">
         <Routes>
           <Route path="/" element={<Home isLogged={isLogged} />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login handleLogin={handleLogin} />} />
           <Route path="/newTask" element={<NewTask />} />
           <Route path="/register" element={<Register />} />
           <Route path="/register/code" element={<Code />} />

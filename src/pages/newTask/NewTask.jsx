@@ -4,10 +4,22 @@ import Input from "../../components/input/Input";
 import "./newTask.css";
 
 export default function NewTask() {
+  const [newTask, setNewTask] = useState({
+    title: "",
+    description: "",
+    urgency: 3,
+  });
+
+  const [errors, setErrors] = useState({
+    title: false,
+    desc: false,
+    urgency: false,
+  });
+
   const [b1, setB1] = useState(false);
   const [b2, setB2] = useState(false);
   const [b3, setB3] = useState(false);
-  const [urgency, setUrgency] = useState(null);
+
   function handleUrgencyButton(id) {
     const states = { b1: id === "b1", b2: id === "b2", b3: id === "b3" };
     setB1(states.b1);
@@ -15,13 +27,38 @@ export default function NewTask() {
     setB3(states.b3);
 
     if (states.b1 === true) {
-      setUrgency(1);
+      setNewTask({ ...newTask, urgency: 1 });
     } else if (states.b2 === true) {
-      setUrgency(2);
+      setNewTask({ ...newTask, urgency: 2 });
     } else {
-      setUrgency(3);
+      setNewTask({ ...newTask, urgency: 3 });
     }
-    console.log(urgency)
+  }
+
+  function handleChangeTitle(e) {
+    setNewTask({ ...newTask, title: e.target.value });
+  }
+
+  function handleChangeDesc(e) {
+    setNewTask({ ...newTask, description: e.target.value });
+  }
+
+  function handleCreateNewTask(e) {
+    e.preventDefault();
+    if (newTask.title === "") {
+      setErrors({ ...errors, title: true });
+      setTimeout(() => {
+        setErrors({ ...errors, title: false });
+      }, 2000);
+    } else if (newTask.description === "") {
+      setErrors({ ...errors, desc: true });
+      setTimeout(() => {
+        setErrors({ ...errors, desc: false });
+      }, 2000);
+    } else {
+      console.log("tarefa criada status:200");
+      console.log(newTask);
+    }
   }
 
   return (
@@ -29,27 +66,48 @@ export default function NewTask() {
       <div className="newTask_header"></div>
       <div className="newTask_body">
         <div className="newTask_form-container">
-          <form action="" className="newTask_form" autocomplete="off">
+          <form
+            action=""
+            onSubmit={handleCreateNewTask}
+            className="newTask_form"
+            autoComplete="off"
+          >
             <h2 className="newTask_form_title">Crie sua tarefa</h2>
             <div className="newTask_item">
-              <label htmlFor="name" className="newTask_title">
+              <label htmlFor="title" className="newTask_title">
                 Titulo
               </label>
-              <Input type="text" id="name" />
+              <Input
+                onChange={(e) => handleChangeTitle(e)}
+                type="text"
+                id="title"
+              />
+              {errors.title && (
+                <div className="error_text">Escreva um titulo</div>
+              )}
             </div>
+
             <div className="newTask_item">
-              <label htmlFor="name" className="newTask_title">
+              <label htmlFor="desc" className="newTask_title">
                 Descrição
               </label>
-              <Input type="text" id="name" />
+              <Input
+                onChange={(e) => handleChangeDesc(e)}
+                type="text"
+                id="desc"
+              />
+              {errors.desc && (
+                <div className="error_text">Escreva uma descrição</div>
+              )}
             </div>
+
             <div className="newTask_urgency">
               <h3 className="newTask_urgency_title">Nivel de urgência</h3>
               <ul className="newTask_urgency_items">
                 <li className="newTask_urgency_item">
                   <input
                     id="b1"
-                    onClick={() => handleUrgencyButton("b1")}
+                    onChange={() => handleUrgencyButton("b1")}
                     checked={b1}
                     className="newTask_urgency_check"
                     type="checkbox"
@@ -59,7 +117,7 @@ export default function NewTask() {
                 <li className="newTask_urgency_item">
                   <input
                     id="b2"
-                    onClick={() => handleUrgencyButton("b2")}
+                    onChange={() => handleUrgencyButton("b2")}
                     checked={b2}
                     className="newTask_urgency_check"
                     type="checkbox"
@@ -69,7 +127,7 @@ export default function NewTask() {
                 <li className="newTask_urgency_item">
                   <input
                     id="b3"
-                    onClick={() => handleUrgencyButton("b3")}
+                    onChange={() => handleUrgencyButton("b3")}
                     checked={b3}
                     className="newTask_urgency_check"
                     type="checkbox"
@@ -77,6 +135,9 @@ export default function NewTask() {
                   <span>Não tem pressa</span>
                 </li>
               </ul>
+              {errors.urgency && (
+                <div className="error_text">selecione a importancia</div>
+              )}
             </div>
             <div className="newTask_button">
               <Button>Criar</Button>

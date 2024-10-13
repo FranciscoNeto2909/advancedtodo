@@ -7,7 +7,7 @@
 .home_header {
   height: 66px;
   width: 100%;
-  padding: 4px 24px;
+  padding: 8px 12px 8px 0;
   position: sticky;
   top: 0;
   box-shadow: 0 2px 6px #000000e0;
@@ -21,12 +21,8 @@
   gap: 8px;
 }
 
-.home_search_input {
-  background-color: transparent;
-  border: none;
-  border-bottom: 1px solid#81d4fa;
-  outline: none;
-  color: #fff;
+.task_search_icon {
+  cursor: pointer;
 }
 
 .home_body {

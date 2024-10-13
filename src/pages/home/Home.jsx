@@ -3,7 +3,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import "./home.css";
 import TasksContainer from "../../components/tasksContainer/TasksContainer";
 import Wellcome from "../../components/welcome/Wellcome";
-
+import Input from "../../components/input/Input"
 const initialTasks = [
   {
     name: "Guardar documentos",
@@ -54,7 +54,7 @@ export default function Home({ isLogged }) {
     <div className="home">
       <div className="home_header">
         <div className="home_search">
-          <input type="text" className="home_search_input" id="task_search" />
+          <Input/>
           <AiOutlineSearch size={26} className="task_search_icon" />
         </div>
       </div>

@@ -2,16 +2,16 @@ import "./input.css";
 
 export default function Input({ type, id, onChange, value }) {
   return (
-    <div class="input-container">
+    <div className="input-container">
       <input
         id={id}
         className="input"
         autoComplete="off"
         type={type}
-        onChange={onchange}
+        onChange={e => onChange(e)}
         value={value}
       />
-      <span class="border"></span>
+      <span className="border"></span>
     </div>
   );
 }

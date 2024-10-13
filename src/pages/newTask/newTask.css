@@ -1,0 +1,67 @@
+.newTask {
+  height: 100vh;
+  background-color: var(--primary);
+  color: #fff;
+  overflow: auto;
+}
+
+.newTask_header {
+  height: 66px;
+  width: 100%;
+  box-shadow: 0 2px 6px #000000e0;
+  display: flex;
+  background-color: var(--box);
+}
+
+.newTask_back_button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+}
+.newTask_body {
+  height: calc(100% - 66px);
+  padding: 82px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.newTask_form {
+  width: 400px;
+  margin-top: 92px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.newTask_item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.newTask_urgency {
+}
+
+.newTask_urgency_title {
+  margin-bottom: 12px;
+}
+
+.newTask_urgency_items {
+  display: flex;
+  justify-content: space-between;
+}
+
+.newTask_urgency_item {
+  display: flex;
+  align-items: center;
+}
+
+.newTask_urgency_check {
+  transform: scale(2);
+  margin: 0 8px 0 4px;
+  cursor: pointer;
+  outline: none;
+}

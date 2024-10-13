@@ -1,16 +1,46 @@
 import Input from "../../components/input/Input";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import "./login.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import Button from "../../components/button/Button";
+import { useState } from "react";
 
 export default function Login({ handleLogin }) {
   const navigate = useNavigate();
+  const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
+
+  const [user, setUser] = useState({ email: "", passowrd: "" });
+  const [errors, setErros] = useState({
+    email: false,
+    password: false,
+  });
+
+  function handleChangeEmail(e) {
+    setUser({ ...user, email: e.target.value });
+  }
+  function handleChangePassword(e) {
+    setUser({ ...user, passowrd: e.target.value });
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
-    await handleLogin()
-    navigate("/");
+    if (emailRegex.test(user.email) === false) {
+      setErros({ ...errors, email: true });
+      setTimeout(() => {
+        setErros({ ...errors, email: false });
+      }, 2000);
+    } else if (user.passowrd == "" || user.passowrd !== "12345") {
+      setErros({ ...errors, password: true });
+      setTimeout(() => {
+        setErros({ ...errors, password: false });
+      }, 2000);
+    } else {
+      console.log("Login feito com sucesso status:200");
+      console.log(user);
+      handleLogin()
+    }
   }
+
   return (
     <div className="login">
       <div className="login_header">
@@ -30,13 +60,27 @@ export default function Login({ handleLogin }) {
               <label className="login_item_title" htmlFor="email">
                 Email
               </label>
-              <Input type="email" id="email" />
+              <Input
+                onChange={(e) => handleChangeEmail(e)}
+                type="email"
+                id="email"
+              />
+              {errors.email && (
+                <div className="error_text">Digite um email válido</div>
+              )}
             </div>
             <div className="login_item">
               <label className="login_item_title" htmlFor="password">
                 Senha
               </label>
-              <Input type="password" id="password" />
+              <Input
+                type="password"
+                onChange={(e) => handleChangePassword(e)}
+                id="password"
+              />
+              {errors.password && (
+                <div className="error_text">Senha invalida</div>
+              )}
             </div>
             <div className="login_buttons">
               <Button className="login_button">Login</Button>

@@ -3,9 +3,41 @@ import { useNavigate } from "react-router-dom";
 import Input from "../../../components/input/Input";
 import "./password.css";
 import Button from "../../../components/button/Button";
+import { useState } from "react";
 
-export default function Password() {
+export default function Password({newUser}) {
   const Navigate = useNavigate();
+  const [passwords, setPasswords] = useState({ password: "", rpPassword: "" });
+  const [errors, setErrors] = useState({ password: false, rpPassword: false });
+
+  function handleChangePassword(e) {
+    setPasswords({ ...passwords, password: e.target.value });
+  }
+
+  function handleChangeRpPassword(e) {
+    setPasswords({ ...passwords, rpPassword: e.target.value });
+  }
+
+  function handleCreateAccount(e) {
+    e.preventDefault();
+    if (passwords.password === "" || passwords.password.length < 4) {
+      setErrors({ ...errors, password: true });
+      setTimeout(() => {
+        setErrors({ ...errors, password: false });
+      }, 2000);
+    } else if (passwords.rpPassword !== passwords.password) {
+      setErrors({ ...errors, rpPassword: true });
+      setTimeout(() => {
+        setErrors({ ...errors, rpPassword: false });
+      }, 2000);
+    } else {
+      console.log("Conta criada status:200")
+      setTimeout(() => {
+        console.log({...newUser, password:passwords.password})
+        Navigate("/login")
+      }, 1000);
+    }
+  }
 
   return (
     <div className="password">
@@ -23,21 +55,39 @@ export default function Password() {
           rapida
         </h2>
         <div className="password_form_container">
-          <form action="" className="password_form" autoComplete="off">
+          <form
+            onSubmit={handleCreateAccount}
+            className="password_form"
+            autoComplete="off"
+          >
             <div className="password_item">
               <label htmlFor="pass" className="password_title">
                 Senha
               </label>
-              <Input type="password" id="pass" />
+              <Input
+                onChange={(e) => handleChangePassword(e)}
+                type="password"
+                id="pass"
+              />
+              {errors.password && (
+                <div className="error_text">Senha muito curta!</div>
+              )}
             </div>
             <div className="password_item">
               <label htmlFor="confirm_pass" className="password_title">
                 Repita a senha
               </label>
-              <Input type="password" id="confirm_pass" />
+              <Input
+                onChange={(e) => handleChangeRpPassword(e)}
+                type="password"
+                id="confirm_pass"
+              />
+              {errors.rpPassword && (
+                <div className="error_text">As senhas não coincidem!</div>
+              )}
             </div>
             <div className="password_buttons">
-              <Button handleClick={() => {Navigate("/login")}}>Create account</Button>
+              <Button>Create account</Button>
             </div>
           </form>
         </div>

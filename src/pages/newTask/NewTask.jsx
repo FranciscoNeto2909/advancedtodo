@@ -78,6 +78,7 @@ export default function NewTask() {
                 Titulo
               </label>
               <Input
+                value={newTask.title}
                 onChange={(e) => handleChangeTitle(e)}
                 type="text"
                 id="title"
@@ -92,6 +93,7 @@ export default function NewTask() {
                 Descrição
               </label>
               <Input
+                value={newTask.description}
                 onChange={(e) => handleChangeDesc(e)}
                 type="text"
                 id="desc"

@@ -39,13 +39,14 @@
 .login_form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 18px;
 }
 
 .login_item {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  position: relative;
 }
 
 .login_buttons {

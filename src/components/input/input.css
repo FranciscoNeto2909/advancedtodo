@@ -5,7 +5,7 @@
 
 .input {
   background-color: transparent;
-  outline: none;
+  outline: none !important;
   border: none;
   width: 100%;
   border-bottom: 1px solid #81d4fa;

@@ -6,6 +6,7 @@ export default function Input({ type, id, onChange, value }) {
       <input
         id={id}
         className="input"
+        autoComplete="off"
         type={type}
         onChange={onchange}
         value={value}

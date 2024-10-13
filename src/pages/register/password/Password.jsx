@@ -23,7 +23,7 @@ export default function Password() {
           rapida
         </h2>
         <div className="password_form_container">
-          <form action="" className="password_form">
+          <form action="" className="password_form" autocomplete="off">
             <div className="password_item">
               <label htmlFor="pass" className="password_title">
                 Senha

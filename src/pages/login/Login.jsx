@@ -17,6 +17,7 @@ export default function Login() {
         <h2>Conecte-se para acessar suas tarefas</h2>
         <div className="login_form_container">
           <form
+            autocomplete="off"
             className="login_form"
             action="submit"
             onSubmit={() => {

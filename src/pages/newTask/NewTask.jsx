@@ -29,7 +29,8 @@ export default function NewTask() {
       <div className="newTask_header"></div>
       <div className="newTask_body">
         <div className="newTask_form-container">
-          <form action="" className="newTask_form">
+          <form action="" className="newTask_form" autocomplete="off">
+            <h2 className="newTask_form_title">Crie sua tarefa</h2>
             <div className="newTask_item">
               <label htmlFor="name" className="newTask_title">
                 Titulo

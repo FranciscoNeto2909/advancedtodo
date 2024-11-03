@@ -1,0 +1,12 @@
+.notice{
+    position: absolute;
+    z-index: 2;
+    bottom: 20px;
+    right: 20px;
+    color: #fff;
+    background-color: #222;
+    padding: 15px;
+    font-size: 20px;
+    box-shadow: 0 0 4px var(--primary);
+    border-radius: 6px;
+}

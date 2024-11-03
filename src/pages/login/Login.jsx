@@ -1,11 +1,14 @@
-import Input from "../../components/input/Input";
-import { AiOutlineArrowLeft } from "react-icons/ai";
-import "./login.css";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import Button from "../../components/button/Button";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { setMsg, clearMsg, hideMsg } from "../../assets/AppSlice";
+import { AiOutlineArrowLeft } from "react-icons/ai";
+import Input from "../../components/input/Input";
+import Button from "../../components/button/Button";
+import "./login.css";
 
 export default function Login({ handleLogin }) {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
 
@@ -35,9 +38,12 @@ export default function Login({ handleLogin }) {
         setErros({ ...errors, password: false });
       }, 2000);
     } else {
-      console.log("Login feito com sucesso status:200");
-      console.log(user);
-      handleLogin()
+      dispatch(setMsg("Seja bem-vindo"))
+      handleLogin();
+      setTimeout(() => {
+      dispatch(clearMsg())
+        
+      }, 2500);
     }
   }
 

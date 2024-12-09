@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
@@ -10,23 +10,57 @@ import Password from "./pages/register/password/Password";
 import Code from "./pages/register/code/Code";
 import Notice from "./components/notice/Notice";
 import "./App.css";
-
+import { socket } from "./socket";
+import { clearMsg, setMsg } from "./assets/AppSlice";
+import { getTasks } from "./assets/tasksSlice";
+import { getUser, logout } from "./assets/UserSlice";
 function App() {
+  const token = localStorage.getItem("token");
+  const id = localStorage.getItem("userId");
+
+  const dispatch = useDispatch();
   const app = useSelector((data) => data.App);
+
   const [isLogged, setIsLogged] = useState(false);
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [newUser, setNewUser] = useState({ name: "", email: "", password: "" });
 
   function handleLogin() {
     setIsLogged(true);
-    Navigate("/");
+    navigate("/");
   }
 
   function handleLogout() {
     setIsLogged(false);
-    Navigate("/");
+    navigate("/");
   }
+
+  useEffect(() => {
+    socket.on("receive_message", async (data) => {
+      dispatch(setMsg(data.text));
+    });
+
+    return () => {
+      socket.off("receive_message");
+      setTimeout(() => {
+        dispatch(clearMsg());
+      }, 2000);
+    };
+  }, [socket]);
+
+  useEffect(() => {
+    dispatch(getTasks())
+  }, [])
+
+  useEffect(() => {
+    navigate("/")
+    if (token !== null && id !== null) {
+      dispatch(getUser(id))
+    } else {
+      dispatch(logout())
+    }
+  }, [])
 
   return (
     <div className="app">

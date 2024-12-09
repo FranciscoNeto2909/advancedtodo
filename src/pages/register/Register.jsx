@@ -4,11 +4,22 @@ import "./register.css";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import Button from "../../components/button/Button";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { emailAuth } from "../../assets/UserSlice";
+import { setAuthCode } from "../../assets/AppSlice";
 
-export default function Register({newUser, setNewUser}) {
-  const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
-
-  const Navigate = useNavigate();
+export default function Register({ newUser, setNewUser }) {
+  const [loading, setLoading] = useState(false);
+  const emailRegex = new RegExp(
+    "^[_a-z0-9-]+([_a-z0-9-]+)*@[a-z0-9-]+([a-z0-9-]+).([a-z]{2,3})$"
+  );
+  const [loginData, setLoginData] = useState({
+    email: "",
+    code: "",
+  });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [error, setError] = useState(false);
   const [errors, setErrors] = useState({ name: false, email: false });
 
   function handleChangeName(e) {
@@ -16,28 +27,46 @@ export default function Register({newUser, setNewUser}) {
   }
 
   function handleChangeEmail(e) {
-    setNewUser({ ...newUser, email: e.target.value });
+    setLoginData({ ...loginData, email: e.target.value });
   }
 
-  function handleSendCode(e) {
+  async function handleValidateEmail(e) {
     e.preventDefault();
-    if (newUser.name === "") {
-      setErrors({ ...errors, name: true });
+    setLoading(true);
+    if (loginData.email === undefined || !emailRegex.test(loginData.email)) {
+      setError(true);
       setTimeout(() => {
-        setErrors({ ...errors, name: false });
+        setLoading(false);
+        setError(false);
+        setLoginData({ ...loginData, email: "" });
       }, 2000);
-    } else if (emailRegex.test(newUser.email) === false) {
-      setErrors({ ...errors, email: true });
-      setTimeout(() => {
-        setErrors({ ...errors, email: false });
-      }, 2000);
-    } else{
-      console.log("Codigo enviado status:200")
-      console.log(newUser)
-      setTimeout(() => {
-        Navigate("./code")
-      }, 1000);
+    } else if (emailRegex.test(loginData.email)) {
+      setLoading(true);
+      const code = await handleGenerateAuthCode();
+
+      await dispatch(setAuthCode(code))
+      dispatch(
+        emailAuth({
+          email: loginData.email,
+          code: code,
+        })
+      ).then(() => {
+        setLoading(false);
+        setTimeout(() => {
+          navigate("/register/code");
+        }, 2000);
+      });
     }
+  }
+
+  async function handleGenerateAuthCode() {
+    let arr = "";
+    for (let index = 0; index < 6; index++) {
+      const random = Math.floor(Math.random() * 10);
+      arr += random;
+    }
+    await setLoginData({ ...loginData, code: arr });
+    return arr;
   }
 
   return (
@@ -45,7 +74,7 @@ export default function Register({newUser, setNewUser}) {
       <div className="register_header">
         <button
           className="register_back_button"
-          onClick={() => Navigate("/login")}
+          onClick={() => navigate("/login")}
         >
           <AiOutlineArrowLeft size={26} />
         </button>
@@ -56,7 +85,7 @@ export default function Register({newUser, setNewUser}) {
             Digite seu nome e email para <br /> receber o codigo de confirmação
           </h2>
           <form
-            onSubmit={handleSendCode}
+            onSubmit={handleValidateEmail}
             autoComplete="off"
             className="register_form"
           >

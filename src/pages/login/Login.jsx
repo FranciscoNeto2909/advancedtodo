@@ -5,14 +5,17 @@ import { setMsg, clearMsg, hideMsg } from "../../assets/AppSlice";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
+import { socket } from "../../socket";
 import "./login.css";
 
 export default function Login({ handleLogin }) {
+  const appUser = useSelector((data) => data.User);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
 
-  const [user, setUser] = useState({ email: "", passowrd: "" });
+  const [user, setUser] = useState({ email: "", password: "" });
   const [errors, setErros] = useState({
     email: false,
     password: false,
@@ -22,27 +25,29 @@ export default function Login({ handleLogin }) {
     setUser({ ...user, email: e.target.value });
   }
   function handleChangePassword(e) {
-    setUser({ ...user, passowrd: e.target.value });
+    setUser({ ...user, password: e.target.value });
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (emailRegex.test(user.email) === false) {
+    if (emailRegex.test(user.email) === false || user.email !== appUser.email) {
       setErros({ ...errors, email: true });
       setTimeout(() => {
         setErros({ ...errors, email: false });
       }, 2000);
-    } else if (user.passowrd == "" || user.passowrd !== "12345") {
+    }
+    else if (user.password == "" || user.password !== appUser.password) {
+      console.log(user.password)
+      console.log(appUser.password)
       setErros({ ...errors, password: true });
       setTimeout(() => {
         setErros({ ...errors, password: false });
       }, 2000);
-    } else {
-      dispatch(setMsg("Seja bem-vindo"))
+    } else if(user) {
+      socket.emit("message", `Seja bem vindo ${appUser.name}`);
       handleLogin();
       setTimeout(() => {
-      dispatch(clearMsg())
-        
+        dispatch(clearMsg());
       }, 2500);
     }
   }

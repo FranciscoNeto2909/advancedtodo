@@ -5,6 +5,7 @@ const AppSlice = createSlice({
   initialState: {
     notice: "",
     hasNotice: false,
+    authCode: "",
   },
   reducers: {
     hideMsg: (state) => {
@@ -16,9 +17,12 @@ const AppSlice = createSlice({
     clearMsg: (state) => {
       return { ...state, notice: "", hasNotice: false };
     },
+    setAuthCode: (state, { payload }) => {
+      return { ...state, authCode: payload };
+    },
   },
 });
 
-export const { hideMsg, setMsg, clearMsg } = AppSlice.actions;
+export const { hideMsg, setMsg, clearMsg, setAuthCode } = AppSlice.actions;
 
 export default AppSlice.reducer;

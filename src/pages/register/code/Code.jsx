@@ -1,29 +1,31 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import Input from "../../../components/input/Input";
 import Button from "../../../components/button/Button";
 import "./code.css";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function Code() {
   const Navigate = useNavigate();
   const [code, setCode] = useState("");
   const [codeError, setCodeError] = useState(false);
-
+  const app = useSelector((data) => data.App);
   function handleChangeCode(e) {
     setCode(e.target.value);
   }
 
   function handleSetCode(e) {
     e.preventDefault();
-    if (code !== "1234") {
+    if (code !== app.authCode) {
+      console.log(app.authCode);
       setCodeError(true);
       setTimeout(() => {
         setCodeError(false);
       }, 2000);
-    } else {
+    } else if (code === app.authCode) {
       console.log("codigo correto status:200");
-      console.log({code:code})
+      console.log({ code: code });
       setTimeout(() => {
         Navigate("/register/password");
       }, 1000);

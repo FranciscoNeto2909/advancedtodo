@@ -1,11 +1,15 @@
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import Input from "../../../components/input/Input";
-import "./password.css";
 import Button from "../../../components/button/Button";
 import { useState } from "react";
+import { socket } from "../../../socket";
+import { setUser } from "../../../assets/UserSlice";
+import { useDispatch } from "react-redux";
+import "./password.css";
 
-export default function Password({newUser}) {
+export default function Password({ newUser }) {
+  const dispatch = useDispatch();
   const Navigate = useNavigate();
   const [passwords, setPasswords] = useState({ password: "", rpPassword: "" });
   const [errors, setErrors] = useState({ password: false, rpPassword: false });
@@ -31,10 +35,11 @@ export default function Password({newUser}) {
         setErrors({ ...errors, rpPassword: false });
       }, 2000);
     } else {
-      console.log("Conta criada status:200")
+      console.log("Conta criada status:200");
       setTimeout(() => {
-        console.log({...newUser, password:passwords.password})
-        Navigate("/login")
+        socket.emit("message", `Usuario ${newUser.name} cadastrado`);
+        dispatch(setUser({ ...newUser, password: passwords.password }));
+        Navigate("/login");
       }, 1000);
     }
   }

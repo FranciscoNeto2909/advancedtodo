@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import Input from "../../../components/input/Input";
 import Button from "../../../components/button/Button";
 import { useState } from "react";
+import { hash } from "bcryptjs";
 import { socket } from "../../../socket";
-import { setUser } from "../../../assets/UserSlice";
+import { createUser } from "../../../assets/UserSlice";
 import { useDispatch } from "react-redux";
 import "./password.css";
+import { clearMsg, setMsg } from "../../../assets/AppSlice";
 
 export default function Password({ newUser }) {
   const dispatch = useDispatch();
@@ -22,7 +24,7 @@ export default function Password({ newUser }) {
     setPasswords({ ...passwords, rpPassword: e.target.value });
   }
 
-  function handleCreateAccount(e) {
+  async function handleCreateAccount(e) {
     e.preventDefault();
     if (passwords.password === "" || passwords.password.length < 4) {
       setErrors({ ...errors, password: true });
@@ -35,12 +37,13 @@ export default function Password({ newUser }) {
         setErrors({ ...errors, rpPassword: false });
       }, 2000);
     } else {
-      console.log("Conta criada status:200");
+      const hashedPassword = await hash(passwords.password, 8);
+      dispatch(createUser({ ...newUser, password: hashedPassword }));
+      dispatch(setMsg("Conta criada com sucesso"));
       setTimeout(() => {
-        socket.emit("message", `Usuario ${newUser.name} cadastrado`);
-        dispatch(setUser({ ...newUser, password: passwords.password }));
-        Navigate("/login");
-      }, 1000);
+        dispatch(clearMsg())
+        Navigate("/login")
+      }, 2500);
     }
   }
 

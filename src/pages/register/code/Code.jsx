@@ -18,14 +18,11 @@ export default function Code() {
   function handleSetCode(e) {
     e.preventDefault();
     if (code !== app.authCode) {
-      console.log(app.authCode);
       setCodeError(true);
       setTimeout(() => {
         setCodeError(false);
       }, 2000);
     } else if (code === app.authCode) {
-      console.log("codigo correto status:200");
-      console.log({ code: code });
       setTimeout(() => {
         Navigate("/register/password");
       }, 1000);

@@ -9,7 +9,6 @@ import { emailAuth } from "../../assets/UserSlice";
 import { setAuthCode } from "../../assets/AppSlice";
 
 export default function Register({ newUser, setNewUser }) {
-  const [loading, setLoading] = useState(false);
   const emailRegex = new RegExp(
     "^[_a-z0-9-]+([_a-z0-9-]+)*@[a-z0-9-]+([a-z0-9-]+).([a-z]{2,3})$"
   );
@@ -17,9 +16,9 @@ export default function Register({ newUser, setNewUser }) {
     email: "",
     code: "",
   });
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [error, setError] = useState(false);
   const [errors, setErrors] = useState({ name: false, email: false });
 
   function handleChangeName(e) {
@@ -30,28 +29,30 @@ export default function Register({ newUser, setNewUser }) {
     setLoginData({ ...loginData, email: e.target.value });
   }
 
-  async function handleValidateEmail(e) {
+  async function handleValidateUser(e) {
     e.preventDefault();
-    setLoading(true);
-    if (loginData.email === undefined || !emailRegex.test(loginData.email)) {
-      setError(true);
+    if (newUser.name === undefined || newUser.name.length < 2) {
+      setErrors({ ...errors, name: true });
       setTimeout(() => {
-        setLoading(false);
-        setError(false);
-        setLoginData({ ...loginData, email: "" });
+        setErrors({ ...errors, name: false });
+      }, 2000); 
+    }
+    else if (loginData.email === undefined || !emailRegex.test(loginData.email)) {
+      setErrors({ ...errors, email: true });
+      setTimeout(() => {
+        setErrors({ ...errors, email: false });
       }, 2000);
     } else if (emailRegex.test(loginData.email)) {
-      setLoading(true);
+      setNewUser({ ...newUser, email: loginData.email });
       const code = await handleGenerateAuthCode();
 
-      await dispatch(setAuthCode(code))
+      await dispatch(setAuthCode(code));
       dispatch(
         emailAuth({
           email: loginData.email,
           code: code,
         })
       ).then(() => {
-        setLoading(false);
         setTimeout(() => {
           navigate("/register/code");
         }, 2000);
@@ -85,7 +86,7 @@ export default function Register({ newUser, setNewUser }) {
             Digite seu nome e email para <br /> receber o codigo de confirmação
           </h2>
           <form
-            onSubmit={handleValidateEmail}
+            onSubmit={handleValidateUser}
             autoComplete="off"
             className="register_form"
           >

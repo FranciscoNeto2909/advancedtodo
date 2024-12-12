@@ -1,9 +1,17 @@
 import { Link } from "react-router-dom";
 import { AiOutlineLogout, AiOutlineLogin } from "react-icons/ai";
 import logo from "../../images/logo.png";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../assets/userSlice";
 import "./navbar.css";
 
-export default function Navbar({ isLogged, handleLogout }) {
+export default function Navbar() {
+  const isLogged = useSelector((data) => data.User.isLogged);
+
+  function handleLogout() {
+    dispatch(logout())
+  }
+
   return (
     <div className="navbar">
       <div className="navbar_logo">
@@ -25,10 +33,7 @@ export default function Navbar({ isLogged, handleLogout }) {
       </div>
       <div className="navbar_footer">
         {!isLogged ? (
-          <Link
-            to="/login"
-            className="navbar_footer_button"
-          >
+          <Link to="/login" className="navbar_footer_button">
             <span>Login</span>
             <AiOutlineLogin size={20} />
           </Link>

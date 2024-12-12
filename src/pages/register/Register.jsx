@@ -5,7 +5,7 @@ import { AiOutlineArrowLeft } from "react-icons/ai";
 import Button from "../../components/button/Button";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { emailAuth } from "../../assets/UserSlice";
+import { emailAuth } from "../../assets/userSlice";
 import { setAuthCode } from "../../assets/AppSlice";
 
 export default function Register({ newUser, setNewUser }) {

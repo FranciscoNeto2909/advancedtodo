@@ -13,7 +13,7 @@ import "./App.css";
 import { socket } from "./socket";
 import { clearMsg, setMsg } from "./assets/AppSlice";
 import { getTasks } from "./assets/tasksSlice";
-import { getUser, logout } from "./assets/UserSlice";
+import { getUser, logout } from "./assets/userSlice";
 function App() {
   const token = localStorage.getItem("token");
   const id = localStorage.getItem("userId");
@@ -21,20 +21,9 @@ function App() {
   const dispatch = useDispatch();
   const app = useSelector((data) => data.App);
 
-  const [isLogged, setIsLogged] = useState(false);
   const navigate = useNavigate();
 
   const [newUser, setNewUser] = useState({ name: "", email: "", password: "" });
-
-  function handleLogin() {
-    setIsLogged(true);
-    navigate("/");
-  }
-
-  function handleLogout() {
-    setIsLogged(false);
-    navigate("/");
-  }
 
   useEffect(() => {
     socket.on("receive_message", async (data) => {
@@ -50,26 +39,26 @@ function App() {
   }, [socket]);
 
   useEffect(() => {
-    dispatch(getTasks())
-  }, [])
+    dispatch(getTasks());
+  }, []);
 
   useEffect(() => {
-    navigate("/")
+    navigate("/");
     if (token !== null && id !== null) {
-      dispatch(getUser(id))
+      dispatch(getUser(id));
     } else {
-      dispatch(logout())
+      dispatch(logout());
     }
-  }, [])
+  }, []);
 
   return (
     <div className="app">
       {app.hasNotice && <Notice text={app.notice} />}
-      <Navbar isLogged={isLogged} handleLogout={handleLogout} />
+      <Navbar />
       <div className="app_pages">
         <Routes>
-          <Route path="/" element={<Home isLogged={isLogged} />} />
-          <Route path="/login" element={<Login handleLogin={handleLogin} />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/newTask" element={<NewTask />} />
           <Route
             path="/register"

@@ -84,10 +84,7 @@ const initialState = {
   user: {
     name: "",
     email: "",
-    phone: "",
-    birthDate: "",
-    sex: "",
-    address: ""
+    password:""
   },
   isLogged: false
 }
@@ -97,6 +94,8 @@ const userSlice = createSlice({
   initialState: initialState,
   reducers: {
     logout(state) {
+      localStorage.removeItem("userId")
+      localStorage.removeItem("token")
       return { ...state, isLogged: false, user: initialState.user }
     },
     userLogin(state) {

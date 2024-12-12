@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { setMsg, clearMsg, hideMsg } from "../../assets/AppSlice";
+import { setMsg, clearMsg } from "../../assets/AppSlice";
+import { login, getUser } from "../../assets/userSlice";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
-import { socket } from "../../socket";
 import "./login.css";
 
-export default function Login({ handleLogin }) {
+export default function Login() {
   const appUser = useSelector((data) => data.User);
 
   const dispatch = useDispatch();
@@ -35,20 +35,62 @@ export default function Login({ handleLogin }) {
       setTimeout(() => {
         setErros({ ...errors, email: false });
       }, 2000);
-    }
-    else if (user.password == "" || user.password !== appUser.password) {
-      console.log(user.password)
-      console.log(appUser.password)
+    } else if (user.password == "" || user.password !== appUser.password) {
+      console.log(user.password);
+      console.log(appUser.password);
       setErros({ ...errors, password: true });
       setTimeout(() => {
         setErros({ ...errors, password: false });
       }, 2000);
-    } else if(user) {
-      socket.emit("message", `Seja bem vindo ${appUser.name}`);
-      handleLogin();
+    } else if (user) {
+      dispatch(login(user))
+        .then((e) => {
+          if (e.payload.error == false) {
+            const userId = e.payload.userId;
+            localStorage.setItem("userId", userId.toString());
+            dispatch(getUser(userId.toString()));
+            navigate("/");
+          }})}
+  }
+
+  function handleLogin() {
+    if (user.email === "") {
+      setErrors({ ...errors, email: true });
       setTimeout(() => {
-        dispatch(clearMsg());
-      }, 2500);
+        setErrors({ ...errors, email: false });
+      }, 2000);
+    } else if (!emailRegex.test(user.email)) {
+      setErrors({ ...errors, email: true });
+      setTimeout(() => {
+        setErrors({ ...errors, email: false });
+      }, 2000);
+    } else if (user.password === "") {
+      setErrors({ ...errors, password: true });
+      setTimeout(() => {
+        setErrors({ ...errors, password: false });
+      }, 2000);
+    } else if (inLoading == false) {
+      setInLoading(true);
+      dispatch(login(user))
+        .then((e) => {
+          if (e.payload.error == false) {
+            const userId = e.payload.userId;
+            localStorage.setItem("userId", userId.toString());
+            dispatch(getUser(userId.toString()));
+            setInLoading(false);
+            dispatch(hideModal());
+            dispatch(hideLogin());
+            navigate("/");
+          } else {
+            setErrors({ ...errors, loginError: true });
+            setTimeout(() => {
+              setErrors({ ...errors, loginError: false });
+            }, 2500);
+          }
+        })
+        .finally(() => {
+          setInLoading(false);
+        });
     }
   }
 

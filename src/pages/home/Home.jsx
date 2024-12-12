@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import "./home.css";
 import TasksContainer from "../../components/tasksContainer/TasksContainer";
@@ -52,7 +51,7 @@ const initialTasks = [
 export default function Home() {
   // const [tasks, setTasks] = useState(initialTasks);
   const isLogged = useSelector((data) => data.User.isLogged);
-  const tasks = useSelector(data => data.Tasks.tasks)
+  const tasks = useSelector((data) => data.Tasks.tasks);
 
   return (
     <div className="home">
@@ -63,7 +62,11 @@ export default function Home() {
         </div>
       </div>
       <div className="home_body">
-        {isLogged ? <TasksContainer tasks={tasks ? tasks : initialTasks} /> : <Wellcome />}
+        {isLogged ? (
+          <TasksContainer tasks={tasks.length > 0 ? tasks : initialTasks} />
+        ) : (
+          <Wellcome />
+        )}
       </div>
     </div>
   );

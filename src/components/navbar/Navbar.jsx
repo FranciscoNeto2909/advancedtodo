@@ -7,9 +7,9 @@ import "./navbar.css";
 
 export default function Navbar() {
   const isLogged = useSelector((data) => data.User.isLogged);
-
+  const dispatch = useDispatch();
   function handleLogout() {
-    dispatch(logout())
+    dispatch(logout());
   }
 
   return (

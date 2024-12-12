@@ -4,11 +4,10 @@ import Input from "../../../components/input/Input";
 import Button from "../../../components/button/Button";
 import { useState } from "react";
 import { hash } from "bcryptjs";
-import { socket } from "../../../socket";
-import { createUser } from "../../../assets/UserSlice";
+import { createUser } from "../../../assets/userSlice";
 import { useDispatch } from "react-redux";
 import "./password.css";
-import { clearMsg, setMsg } from "../../../assets/AppSlice";
+import { setMsg } from "../../../assets/AppSlice";
 
 export default function Password({ newUser }) {
   const dispatch = useDispatch();
@@ -41,8 +40,7 @@ export default function Password({ newUser }) {
       dispatch(createUser({ ...newUser, password: hashedPassword }));
       dispatch(setMsg("Conta criada com sucesso"));
       setTimeout(() => {
-        dispatch(clearMsg())
-        Navigate("/login")
+        Navigate("/login");
       }, 2500);
     }
   }

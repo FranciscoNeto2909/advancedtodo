@@ -20,6 +20,7 @@ function App() {
 
   const dispatch = useDispatch();
   const app = useSelector((data) => data.App);
+  const current = useSelector((data) => data.User.user);
 
   const navigate = useNavigate();
 
@@ -32,15 +33,8 @@ function App() {
 
     return () => {
       socket.off("receive_message");
-      setTimeout(() => {
-        dispatch(clearMsg());
-      }, 2000);
     };
   }, [socket]);
-
-  useEffect(() => {
-    dispatch(getTasks());
-  }, []);
 
   useEffect(() => {
     navigate("/");
@@ -49,7 +43,18 @@ function App() {
     } else {
       dispatch(logout());
     }
+    dispatch(getTasks());
   }, []);
+
+  useEffect(() => {
+    console.log(`Usuario:${current.name}`);
+  }, [current]);
+
+  if (app.hasNotice) {
+    setTimeout(() => {
+      dispatch(clearMsg());
+    }, 2500);
+  }
 
   return (
     <div className="app">

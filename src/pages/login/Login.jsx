@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { setMsg, clearMsg } from "../../assets/AppSlice";
+import { setMsg } from "../../assets/AppSlice";
 import { login, getUser } from "../../assets/userSlice";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import Input from "../../components/input/Input";
@@ -9,11 +9,13 @@ import Button from "../../components/button/Button";
 import "./login.css";
 
 export default function Login() {
-  const appUser = useSelector((data) => data.User);
+  const appUser = useSelector((data) => data.User.user);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
+  const emailRegex = new RegExp(
+    "^[_a-z0-9-]+([_a-z0-9-]+)*@[a-z0-9-]+([a-z0-9-]+).([a-z]{2,3})$"
+  );
 
   const [user, setUser] = useState({ email: "", password: "" });
   const [errors, setErros] = useState({
@@ -30,14 +32,12 @@ export default function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (emailRegex.test(user.email) === false || user.email !== appUser.email) {
+    if (!emailRegex.test(user.email)) {
       setErros({ ...errors, email: true });
       setTimeout(() => {
         setErros({ ...errors, email: false });
       }, 2000);
-    } else if (user.password == "" || user.password !== appUser.password) {
-      console.log(user.password);
-      console.log(appUser.password);
+    } else if (user.password == "") {
       setErros({ ...errors, password: true });
       setTimeout(() => {
         setErros({ ...errors, password: false });
@@ -48,51 +48,13 @@ export default function Login() {
           if (e.payload.error == false) {
             const userId = e.payload.userId;
             localStorage.setItem("userId", userId.toString());
-            dispatch(getUser(userId.toString()));
+            dispatch(getUser(userId.toString())).then((e) => {
+              dispatch(setMsg(`Seja bem vindo ${e.payload.name} `))
+            })
             navigate("/");
           }})}
   }
 
-  function handleLogin() {
-    if (user.email === "") {
-      setErrors({ ...errors, email: true });
-      setTimeout(() => {
-        setErrors({ ...errors, email: false });
-      }, 2000);
-    } else if (!emailRegex.test(user.email)) {
-      setErrors({ ...errors, email: true });
-      setTimeout(() => {
-        setErrors({ ...errors, email: false });
-      }, 2000);
-    } else if (user.password === "") {
-      setErrors({ ...errors, password: true });
-      setTimeout(() => {
-        setErrors({ ...errors, password: false });
-      }, 2000);
-    } else if (inLoading == false) {
-      setInLoading(true);
-      dispatch(login(user))
-        .then((e) => {
-          if (e.payload.error == false) {
-            const userId = e.payload.userId;
-            localStorage.setItem("userId", userId.toString());
-            dispatch(getUser(userId.toString()));
-            setInLoading(false);
-            dispatch(hideModal());
-            dispatch(hideLogin());
-            navigate("/");
-          } else {
-            setErrors({ ...errors, loginError: true });
-            setTimeout(() => {
-              setErrors({ ...errors, loginError: false });
-            }, 2500);
-          }
-        })
-        .finally(() => {
-          setInLoading(false);
-        });
-    }
-  }
 
   return (
     <div className="login">

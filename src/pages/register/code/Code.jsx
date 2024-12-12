@@ -1,10 +1,10 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import Input from "../../../components/input/Input";
 import Button from "../../../components/button/Button";
-import "./code.css";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import "./code.css";
 
 export default function Code() {
   const Navigate = useNavigate();

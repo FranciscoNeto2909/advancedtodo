@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
+import Profile from "./pages/profile/Profile";
 import NewTask from "./pages/newTask/NewTask";
 import Navbar from "./components/navBar/NavBar";
 import Register from "./pages/register/Register";
@@ -46,10 +47,6 @@ function App() {
     dispatch(getTasks());
   }, []);
 
-  useEffect(() => {
-    console.log(`Usuario:${current.name}`);
-  }, [current]);
-
   if (app.hasNotice) {
     setTimeout(() => {
       dispatch(clearMsg());
@@ -64,6 +61,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/newTask" element={<NewTask />} />
           <Route
             path="/register"

@@ -84,7 +84,8 @@ const initialState = {
   user: {
     name: "",
     email: "",
-    password:""
+    password:"",
+    image:""
   },
   isLogged: false
 }

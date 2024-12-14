@@ -6,16 +6,33 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../assets/userSlice";
 import "./navbar.css";
 import { HiOutlineUsers } from "react-icons/hi";
+import { useEffect, useState } from "react";
+import { serverUrl } from "../../assets/api";
 
 export default function Navbar() {
+  const dispatch = useDispatch();
+  const [image, setImage] = useState(undefined);
   const isLogged = useSelector((data) => data.User.isLogged);
-  const userImg = useSelector((data) => data.User.image);
+  const user = useSelector((data) => data.User);
   const defImg =
     "https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png";
-  const dispatch = useDispatch();
+
   function handleLogout() {
-    dispatch(logout());
+    dispatch(logout())
+    setImage(undefined)
+    
   }
+
+  function handleSetUserImage() {
+    setImage(`${serverUrl}profile/${user.user.image}`);
+  }
+
+  useEffect(() => {
+    console.log(image)
+    if (user.isLogged) {
+      handleSetUserImage();
+    }
+  }, user.image);
 
   return (
     <div className="navbar">
@@ -39,10 +56,10 @@ export default function Navbar() {
         )}
       </div>
       <div className="navbar_footer">
-        <Link to="/profile">
+        <Link to={user.isLogged ? "/profile" : "/login"}>
           <img
             className="navbar_footer_img"
-            src={userImg != undefined ? userImg : defImg}
+            src={image != undefined ? image : defImg}
             alt=""
           />
         </Link>
@@ -52,10 +69,10 @@ export default function Navbar() {
             <AiOutlineLogin size={20} />
           </Link>
         ) : (
-          <button className="navbar_footer_button" onClick={handleLogout}>
+          <Link to="/" className="navbar_footer_button" onClick={handleLogout}>
             <span>Logout</span>
             <AiOutlineLogout size={20} />
-          </button>
+          </Link>
         )}
       </div>
     </div>

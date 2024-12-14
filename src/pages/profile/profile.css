@@ -1,0 +1,52 @@
+.profile {
+  height: 100vh;
+  background-color: var(--primary);
+  color: #fff;
+  overflow: auto;
+}
+.profile_header {
+  height: 66px;
+  width: 100%;
+  padding: 8px 12px 8px 0;
+  position: sticky;
+  top: 0;
+  box-shadow: 0 2px 6px #000000e0;
+  display: flex;
+  align-items: flex-end;
+  background-color: var(--box);
+}
+.profile_search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile_body {
+  height: calc(100% - 66px);
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.profile-img {
+  margin-left: -5px;
+  height: 150px;
+  width: 150px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.profile-container {
+  position: relative;
+}
+
+.profile-cam {
+  position: absolute;
+  bottom: 16px;
+  left: 38%;
+  fill: #00f;
+  cursor: pointer;
+}
+.profile-inpt {
+  display: none;
+}

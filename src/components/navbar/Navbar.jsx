@@ -28,7 +28,6 @@ export default function Navbar() {
   }
 
   useEffect(() => {
-    console.log(image)
     if (user.isLogged) {
       handleSetUserImage();
     }

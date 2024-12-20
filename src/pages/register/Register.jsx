@@ -29,6 +29,16 @@ export default function Register({ newUser, setNewUser }) {
     setLoginData({ ...loginData, email: e.target.value });
   }
 
+  async function handleGenerateAuthCode() {
+    let arr = "";
+    for (let index = 0; index < 6; index++) {
+      const random = Math.floor(Math.random() * 10);
+      arr += random;
+    }
+    await setLoginData({ ...loginData, code: arr });
+    return arr;
+  }
+
   async function handleValidateUser(e) {
     e.preventDefault();
     if (newUser.name === undefined || newUser.name.length < 2) {
@@ -58,16 +68,6 @@ export default function Register({ newUser, setNewUser }) {
         }, 2000);
       });
     }
-  }
-
-  async function handleGenerateAuthCode() {
-    let arr = "";
-    for (let index = 0; index < 6; index++) {
-      const random = Math.floor(Math.random() * 10);
-      arr += random;
-    }
-    await setLoginData({ ...loginData, code: arr });
-    return arr;
   }
 
   return (

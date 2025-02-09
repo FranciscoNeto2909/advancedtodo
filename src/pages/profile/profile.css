@@ -65,7 +65,8 @@
   gap: 24px;
 }
 .profile-name,
-.profile-email {
+.profile-email,
+.profile-pass {
   position: relative;
 }
 

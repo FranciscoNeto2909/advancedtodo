@@ -11,17 +11,22 @@ import { useEffect, useState } from "react";
 import "./profile.css";
 import Button from "../../components/button/Button";
 import Input from "../../components/input/Input";
-import { setAuthCode } from "../../assets/AppSlice";
+import { setAuthCode, setMsg } from "../../assets/AppSlice";
+import { hash } from "bcryptjs";
 
 export default function Profile() {
   const [image, setImage] = useState(undefined);
   const [nameVisib, setNameVisb] = useState(false);
+  const [passVisib, setPassVisib] = useState(false);
+  const [rpPassVisib, setRpPassVisib] = useState(false);
   const [emailVisib, setEmailVisb] = useState(false);
   const [emailSended, setEmailSended] = useState(false);
   const [code, setCode] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [codeError, setCodeError] = useState(false);
   const [emailError, setEmailError] = useState(false);
+  const [passError, setPassError] = useState(false);
+
   const app = useSelector(data => data.App);
   const user = useSelector(data => data.User.user);
   const [userData, setUserData] = useState({
@@ -29,7 +34,7 @@ export default function Profile() {
     email: "",
     image: "",
     password: "",
-    confirmPass: "",
+    rpPassword: "",
   });
 
   const dispatch = useDispatch();
@@ -55,16 +60,18 @@ export default function Profile() {
   async function handleUpdateUser() {
     setNameVisb(false);
     setEmailVisb(false);
+    setPassVisib(false);
 
+    const hashedPassword = await hash(userData.password, 8);
     await dispatch(
       updateUser({
         name: userData.name,
         email: userData.email,
         image: "",
-        oldPassword: "",
-        newPassword: "",
+        oldPassword: user.password,
+        newPassword: hashedPassword,
       })
-    );
+    ).then(e => dispatch(setMsg(e.payload.msg)));
     dispatch(getUser(localStorage.getItem("userId")));
   }
 
@@ -124,6 +131,42 @@ export default function Profile() {
     }
   }
 
+  function handleContinue(e) {
+    e.preventDefault();
+    if (userData.password == "") {
+      setPassError(true);
+      setErrorMsg("Este campo não pode estar vazio");
+      setTimeout(() => {
+        setPassError(false);
+        setErrorMsg("");
+      }, 2000);
+    } else {
+      setRpPassVisib(true);
+    }
+  }
+
+  function handleChangePassword(e) {
+    e.preventDefault();
+    if (rpPassVisib && userData.rpPassword == "") {
+      setPassError(true);
+      setErrorMsg("Este campo não pode estar vazio");
+      setTimeout(() => {
+        setPassError(false);
+        setErrorMsg("");
+      }, 2000);
+    } else if (userData.password != userData.rpPassword) {
+      setPassError(true);
+      setErrorMsg("As senhas não coincidem");
+      setTimeout(() => {
+        setPassError(false);
+        setErrorMsg("");
+      }, 2000);
+    } else {
+      handleUpdateUser();
+      setUserData({ ...userData, password: "", rpPassword: "" });
+    }
+  }
+
   useEffect(() => {
     handleSetUserImage();
   }, [user.image]);
@@ -135,7 +178,7 @@ export default function Profile() {
         <div className="profile_image">
           <label htmlFor="img" className="profile-container">
             <img
-              src={image != undefined ? image : defImg}
+              src={image != undefined || "" ? image : defImg}
               className="profile-img"
               alt=""
             />
@@ -153,9 +196,9 @@ export default function Profile() {
         <div className="profile-userdata">
           <div className="profile-name">
             {nameVisib ? (
-              <p className="profile-name-desc">
+              <h3 className="profile-name-desc">
                 Este é o nome que aparecerá para outros usuários
-              </p>
+              </h3>
             ) : (
               <h2 className="profile-name-user">{user.name}</h2>
             )}
@@ -204,10 +247,10 @@ export default function Profile() {
           </div>
           <div className="profile-email">
             {emailVisib ? (
-              <p className="profile-email-desc">
+              <h3 className="profile-email-desc">
                 Você receberá um código no email digitado para confirmar sua
                 identidade
-              </p>
+              </h3>
             ) : (
               <h2 className="profile-email-user">{user.email}</h2>
             )}
@@ -275,7 +318,100 @@ export default function Profile() {
               />
             )}
           </div>
-          <div className="profile_password"></div>
+          <div className="profile-pass">
+            {passVisib ? (
+              <h3 className="profile-pass-desc">
+                Não se esqueça de anotar sua senha!
+              </h3>
+            ) : (
+              <h2 className="profile-pass-user">Senha</h2>
+            )}
+            {passVisib && (
+              <form className="profile-form" onSubmit={handleChangePassword}>
+                <div className="profile-form-pass">
+                  {!rpPassVisib ? (
+                    <div className="input-group">
+                      <label className="lbl" htmlFor="pass">
+                        Senha
+                      </label>
+                      <Input
+                        id="pass"
+                        type="password"
+                        className="inpt"
+                        autoComplete="none"
+                        placeholder=" "
+                        required
+                        value={userData.password}
+                        onChange={e =>
+                          setUserData({ ...userData, password: e.target.value })
+                        }
+                      />
+                      {passError && <p className="error-txt">{errorMsg}</p>}
+                    </div>
+                  ) : (
+                    <div className="input-group">
+                      <label className="lbl" htmlFor="rpPass">
+                        Repita a senha
+                      </label>
+                      <Input
+                        id="rpPass"
+                        type="password"
+                        className="inpt"
+                        autoComplete="none"
+                        placeholder=" "
+                        required
+                        value={userData.rpPassword}
+                        onChange={e =>
+                          setUserData({
+                            ...userData,
+                            rpPassword: e.target.value,
+                          })
+                        }
+                      />
+                      {passError && <p className="error-txt">{errorMsg}</p>}
+                    </div>
+                  )}
+                </div>
+                <div className="profile-form-buttons">
+                  {rpPassVisib ? (
+                    <>
+                      <Button
+                        className="profile-btn-cancel"
+                        handleClick={() => setRpPassVisib(!rpPassVisib)}
+                        text={"Voltar"}
+                      />
+                      <Button
+                        className="profile-btn-save"
+                        type="submit"
+                        text="Salvar"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <Button
+                        className="profile-btn-cancel"
+                        handleClick={() => setPassVisib(!passVisib)}
+                        text={"Cancelar"}
+                      />
+                      <Button
+                        className="profile-btn-save"
+                        type="button"
+                        text="Continuar"
+                        handleClick={handleContinue}
+                      />
+                    </>
+                  )}
+                </div>
+              </form>
+            )}
+            {!passVisib && (
+              <Button
+                className="profile-btn-edit"
+                handleClick={() => setPassVisib(!passVisib)}
+                text="Editar"
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>

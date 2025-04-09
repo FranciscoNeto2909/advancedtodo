@@ -1,6 +1,4 @@
 import axios from "axios";
-// server Url https://mybnb-api.onrender.com/
-// Localhost Url http://localhost:3001/
 
 export const serverUrl = "http://localhost:3001/"
 

@@ -47,6 +47,7 @@ export default function Profile() {
   async function handleChangeUserImage(e) {
     const userId = localStorage.getItem("userId");
     const img = await e.target.files[0];
+    
     dispatch(setUserImage(img)).then(e => {
       dispatch(getUser(userId));
       setUserImage(`${serverUrl}profile/${user.image}`);

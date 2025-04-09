@@ -2,11 +2,14 @@ import { useState } from "react";
 import Button from "../../components/button/Button";
 import Input from "../../components/input/Input";
 import "./newTask.css";
-
+import { postTask } from "../../assets/tasksSlice";
+import { useDispatch } from "react-redux";
+ 
 export default function NewTask() {
+  const dispatch = useDispatch()
   const [newTask, setNewTask] = useState({
     title: "",
-    description: "",
+    desc: "",
     urgency: 3,
   });
 
@@ -40,24 +43,28 @@ export default function NewTask() {
   }
 
   function handleChangeDesc(e) {
-    setNewTask({ ...newTask, description: e.target.value });
+    setNewTask({ ...newTask, desc: e.target.value });
   }
 
   function handleCreateNewTask(e) {
-    e.preventDefault();
     if (newTask.title === "") {
       setErrors({ ...errors, title: true });
       setTimeout(() => {
         setErrors({ ...errors, title: false });
       }, 2000);
-    } else if (newTask.description === "") {
+    } else if (newTask.desc === "") {
       setErrors({ ...errors, desc: true });
       setTimeout(() => {
         setErrors({ ...errors, desc: false });
       }, 2000);
+    } else if (newTask.urgency === "") {
+      setErrors({ ...errors, urgency: true });
+      setTimeout(() => {
+        setErrors({ ...errors, urgency: false });
+      }, 2000);
     } else {
       console.log("tarefa criada status:200");
-      console.log(newTask);
+      dispatch(postTask(newTask))
     }
   }
 
@@ -79,7 +86,7 @@ export default function NewTask() {
               </label>
               <Input
                 value={newTask.title}
-                onChange={(e) => handleChangeTitle(e)}
+                onChange={e => handleChangeTitle(e)}
                 type="text"
                 id="title"
               />
@@ -93,8 +100,8 @@ export default function NewTask() {
                 Descrição
               </label>
               <Input
-                value={newTask.description}
-                onChange={(e) => handleChangeDesc(e)}
+                value={newTask.desc}
+                onChange={e => handleChangeDesc(e)}
                 type="text"
                 id="desc"
               />

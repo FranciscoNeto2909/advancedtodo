@@ -9,6 +9,18 @@
   background-color: var(--box);
 }
 
+.task-urgency1{
+  border: 1px solid #f00;
+}
+
+.task-urgency2{
+  border: 1px solid #fb8c00;
+}
+
+.task-urgency3{
+  border: 1px solid #81d4fa;
+}
+
 .task:hover {
   box-shadow: 0 0 6px #81d4fa;
   transition: 300ms ease-in-out;
@@ -17,11 +29,22 @@
 .task_title {
   font-size: 24px;
   text-align: center;
+  text-transform: capitalize;
+}
+
+.task_desc {
+  font-size: 20px;
+  text-align: center;
+  text-transform: capitalize;
 }
 
 .task_buttons {
   display: flex;
   justify-content: flex-end;
+}
+
+.task_button {
+  
 }
 
 .task_icon_check {

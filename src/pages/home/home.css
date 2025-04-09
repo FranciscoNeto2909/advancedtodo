@@ -30,4 +30,34 @@
   padding: 24px;
   display: flex;
   justify-content: center;
+  position: relative;
+}
+
+.home-create-task {
+  align-self: center;
+  font-size: 42px;
+  color: #ffffff53; 
+}
+
+.home-arrow{
+  color: #ffffff53;
+  position: absolute;
+  left: 8px;
+  top: 94px;
+  animation: 3s move infinite ease-in-out;
+}
+
+
+@keyframes move {
+  0%{
+    transform: translateX(0);
+  } 
+
+  50% {
+    transform: translateX(20px);
+  }
+
+  100%{
+    transform: translateX(0);
+  }
 }

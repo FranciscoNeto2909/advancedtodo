@@ -1,14 +1,14 @@
 import "./button.css";
 
 export default function Button({
-  handleClick,
+  onClick,
   text,
   children,
   className,
   type,
 }) {
   return (
-    <button onClick={handleClick} type={type} className={`button ${className}`}>
+    <button onClick={onClick} type={type} className={`button ${className}`}>
       {text ? text : children}
     </button>
   );

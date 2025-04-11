@@ -29,6 +29,7 @@ export default function Profile() {
 
   const app = useSelector(data => data.App);
   const user = useSelector(data => data.User.user);
+
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -170,6 +171,7 @@ export default function Profile() {
 
   useEffect(() => {
     handleSetUserImage();
+    console.log(user)
   }, [user.image]);
 
   return (

@@ -4,9 +4,12 @@ import Input from "../../components/input/Input";
 import "./newTask.css";
 import { postTask } from "../../assets/tasksSlice";
 import { useDispatch } from "react-redux";
- 
+import { useNavigate } from "react-router-dom";
+
 export default function NewTask() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [newTask, setNewTask] = useState({
     title: "",
     desc: "",
@@ -64,7 +67,7 @@ export default function NewTask() {
       }, 2000);
     } else {
       console.log("tarefa criada status:200");
-      dispatch(postTask(newTask))
+      dispatch(postTask(newTask)).then(() => navigate("/"));
     }
   }
 

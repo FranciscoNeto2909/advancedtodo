@@ -20,15 +20,20 @@ function App() {
   const id = localStorage.getItem("userId");
 
   const dispatch = useDispatch();
-  const app = useSelector((data) => data.App);
-  const current = useSelector((data) => data.User.user);
+  const app = useSelector(data => data.App);
+  const current = useSelector(data => data.User.user);
 
   const navigate = useNavigate();
 
-  const [newUser, setNewUser] = useState({ name: "", email: "", password: "" });
+  const [newUser, setNewUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+    isLogged: false,
+  });
 
   useEffect(() => {
-    socket.on("receive_message", async (data) => {
+    socket.on("receive_message", async data => {
       dispatch(setMsg(data.text));
     });
 

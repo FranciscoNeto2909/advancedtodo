@@ -1,37 +1,37 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineLogout, AiOutlineLogin, AiOutlineUser } from "react-icons/ai";
 import { RiAddLargeLine } from "react-icons/ri";
 import logo from "../../images/logo.png";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../assets/userSlice";
+import { logout, userLogout } from "../../assets/userSlice";
 import "./navbar.css";
 import { HiOutlineUsers } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import { serverUrl } from "../../assets/api";
 
 export default function Navbar() {
-  const dispatch = useDispatch();
-  const [image, setImage] = useState(undefined);
-  const isLogged = useSelector((data) => data.User.isLogged);
-  const user = useSelector((data) => data.User);
   const defImg =
     "https://www.pngall.com/wp-content/uploads/5/Profile-PNG-File.png";
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [image, setImage] = useState(defImg);
+  const user = useSelector(data => data.User.user);
 
   function handleLogout() {
-    dispatch(logout())
-    setImage(undefined)
-    
+    dispatch(userLogout(user.id));
+    navigate(0);
+    setImage(defImg);
   }
 
   function handleSetUserImage() {
-    setImage(`${serverUrl}profile/${user.user.image}`);
+    setImage(`${serverUrl}profile/${user.image}`);
   }
 
   useEffect(() => {
     if (user.isLogged) {
       handleSetUserImage();
     }
-  }, user.image);
+  }, [user.image]);
 
   return (
     <div className="navbar">
@@ -41,7 +41,7 @@ export default function Navbar() {
         </Link>
       </div>
       <div className="navbar_menu">
-        {isLogged && (
+        {user.isLogged && (
           <ul className="navbar_list">
             <li className="navbar_list_item">
               <RiAddLargeLine size={20} />
@@ -62,7 +62,7 @@ export default function Navbar() {
             alt=""
           />
         </Link>
-        {!isLogged ? (
+        {!user.isLogged ? (
           <Link to="/login" className="navbar_footer_button">
             <span>Login</span>
             <AiOutlineLogin size={20} />

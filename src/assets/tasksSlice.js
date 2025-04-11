@@ -44,7 +44,7 @@ export const deleteTask = createAsyncThunk("deleteTask", async id => {
     }
 })
 
-const taskSlice = createSlice({
+const tasksSlice = createSlice({
     name: "task",
     initialState: {
         tasks: []
@@ -59,6 +59,6 @@ const taskSlice = createSlice({
 
 })
 
-export const {  } = taskSlice.actions
+export const {  } = tasksSlice.actions
 
-export default taskSlice.reducer
+export default tasksSlice.reducer

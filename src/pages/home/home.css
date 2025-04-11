@@ -4,6 +4,7 @@
   color: #fff;
   overflow: auto;
 }
+
 .home_header {
   height: 66px;
   width: 100%;
@@ -43,7 +44,7 @@
   color: #ffffff53;
   position: absolute;
   left: 8px;
-  top: 94px;
+  top: 74px;
   animation: 3s move infinite ease-in-out;
 }
 

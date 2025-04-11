@@ -71,7 +71,7 @@ export default function Profile() {
         email: userData.email,
         image: "",
         oldPassword: user.password,
-        newPassword: hashedPassword,
+        newPassword: userData.password != "" ? hashedPassword : "",
       })
     ).then(e => dispatch(setMsg(e.payload.msg)));
     dispatch(getUser(localStorage.getItem("userId")));
@@ -171,7 +171,6 @@ export default function Profile() {
 
   useEffect(() => {
     handleSetUserImage();
-    console.log(user)
   }, [user.image]);
 
   return (
@@ -229,7 +228,7 @@ export default function Profile() {
                 <div className="profile-form-buttons">
                   <Button
                     className="profile-btn-cancel"
-                    handleClick={() => setNameVisb(!nameVisib)}
+                    onClick={() => setNameVisb(!nameVisib)}
                     text="Cancelar"
                   />
                   <Button
@@ -243,7 +242,7 @@ export default function Profile() {
             {!nameVisib && (
               <Button
                 className="profile-btn-edit"
-                handleClick={() => setNameVisb(!nameVisib)}
+                onClick={() => setNameVisb(!nameVisib)}
                 text="Editar"
               />
             )}
@@ -282,7 +281,7 @@ export default function Profile() {
                 <div className="profile-form-buttons">
                   <Button
                     className="profile-btn-cancel"
-                    handleClick={() => setEmailVisb(!emailVisib)}
+                    onClick={() => setEmailVisb(!emailVisib)}
                     text={"Cancelar"}
                   />
                   <Button
@@ -316,7 +315,7 @@ export default function Profile() {
             {!emailVisib && (
               <Button
                 className="profile-btn-edit"
-                handleClick={() => setEmailVisb(!emailVisib)}
+                onClick={() => setEmailVisb(!emailVisib)}
                 text="Editar"
               />
             )}
@@ -380,7 +379,7 @@ export default function Profile() {
                     <>
                       <Button
                         className="profile-btn-cancel"
-                        handleClick={() => setRpPassVisib(!rpPassVisib)}
+                        onClick={() => setRpPassVisib(!rpPassVisib)}
                         text={"Voltar"}
                       />
                       <Button
@@ -393,14 +392,14 @@ export default function Profile() {
                     <>
                       <Button
                         className="profile-btn-cancel"
-                        handleClick={() => setPassVisib(!passVisib)}
+                        onClick={() => setPassVisib(!passVisib)}
                         text={"Cancelar"}
                       />
                       <Button
                         className="profile-btn-save"
                         type="button"
                         text="Continuar"
-                        handleClick={handleContinue}
+                        onClick={handleContinue}
                       />
                     </>
                   )}
@@ -410,7 +409,7 @@ export default function Profile() {
             {!passVisib && (
               <Button
                 className="profile-btn-edit"
-                handleClick={() => setPassVisib(!passVisib)}
+                onClick={() => setPassVisib(!passVisib)}
                 text="Editar"
               />
             )}

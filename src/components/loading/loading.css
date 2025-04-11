@@ -1,0 +1,22 @@
+.loading {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader {
+  height: 100px;
+  width: 100px;
+  animation: loading 1500ms ease-in-out infinite;
+}
+.loader-img{
+    height: inherit;
+}
+
+@keyframes loading {
+  0% {
+    rotate: 360deg;
+  }
+}

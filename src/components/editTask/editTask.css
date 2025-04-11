@@ -1,0 +1,79 @@
+.editTask {
+  height: 100%;
+  width: calc(100vw - 300px);
+  padding: 12px;
+  position: absolute;
+  border-radius: 20px;
+  background-color: var(--secondary);
+  backdrop-filter: blur(10px);
+  animation: open 1500ms normal;
+}
+
+.editTask-header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.editTask-close-button {
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.editTask-body {
+  height: 550px;
+  width: 700px;
+  display: flex;
+  align-self: center;
+  justify-self: center;
+  justify-content: center;
+  align-items: center;
+}
+.editTask-form{
+    width: 550px;
+    margin-top: -84px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.editTask-item{
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+}
+
+.editTask-item--button{
+    align-items: center;
+}
+
+.editTask_urgency_title{
+    margin-bottom: 12px;
+}
+
+.editTask_urgency_items{
+    display: flex;
+    justify-content: space-between;
+}
+
+.editTask-button{
+    justify-self: center;
+}
+
+.editTask-save-button{
+    width: 100%;
+    background-color: var(--primary);
+}
+
+@keyframes open {
+  0% {
+    backdrop-filter: blur(0px);
+    background-color: transparent;
+  }
+  100% {
+    backdrop-filter: blur(10px);
+    background-color: var(--secondary);
+  }
+}

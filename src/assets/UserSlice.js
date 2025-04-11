@@ -102,16 +102,13 @@ const initialState = {
     password: "",
     image: "",
     isLogged: false,
-  }
+  },
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState: initialState,
   reducers: {
-    logout(state) {
-      return { ...state, user: initialState.user };
-    },
     setUser(state, { payload }) {
       return { ...state, user: payload };
     },

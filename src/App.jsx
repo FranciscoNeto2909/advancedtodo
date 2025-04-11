@@ -5,16 +5,18 @@ import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import Profile from "./pages/profile/Profile";
 import NewTask from "./pages/newTask/NewTask";
-import Navbar from "./components/navBar/NavBar";
+import Navbar from "./components/navbar/NavBar";
 import Register from "./pages/register/Register";
 import Password from "./pages/register/password/Password";
 import Code from "./pages/register/code/Code";
 import Notice from "./components/notice/Notice";
 import "./App.css";
 import { socket } from "./socket";
-import { clearMsg, setMsg } from "./assets/AppSlice";
+import { clearMsg, getUsers, setMsg } from "./assets/AppSlice";
 import { getTasks } from "./assets/tasksSlice";
-import { getUser, logout } from "./assets/userSlice";
+import { getUser } from "./assets/userSlice";
+import Users from "./pages/users/Users";
+
 function App() {
   const token = localStorage.getItem("token");
   const id = localStorage.getItem("userId");
@@ -44,10 +46,9 @@ function App() {
 
   useEffect(() => {
     navigate("/");
+    dispatch(getUsers())
     if (token !== null && id !== null) {
       dispatch(getUser(id));
-    } else {
-      dispatch(logout());
     }
     dispatch(getTasks());
   }, []);
@@ -67,6 +68,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/users" element={<Users />} />
           <Route path="/newTask" element={<NewTask />} />
           <Route
             path="/register"

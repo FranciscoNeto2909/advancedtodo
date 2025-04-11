@@ -3,7 +3,7 @@ import { AiOutlineLogout, AiOutlineLogin, AiOutlineUser } from "react-icons/ai";
 import { RiAddLargeLine } from "react-icons/ri";
 import logo from "../../images/logo.png";
 import { useDispatch, useSelector } from "react-redux";
-import { logout, userLogout } from "../../assets/userSlice";
+import { userLogout } from "../../assets/userSlice";
 import "./navbar.css";
 import { HiOutlineUsers } from "react-icons/hi";
 import { useEffect, useState } from "react";
@@ -31,7 +31,7 @@ export default function Navbar() {
     if (user.isLogged) {
       handleSetUserImage();
     }
-  }, [user.image]);
+  }, [user]);
 
   return (
     <div className="navbar">

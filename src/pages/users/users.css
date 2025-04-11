@@ -1,0 +1,55 @@
+.users {
+  height: 100vh;
+  background-color: var(--primary);
+  color: #fff;
+  overflow: auto;
+}
+
+.users_header {
+  height: 66px;
+  width: 100%;
+  padding: 8px 12px 8px 0;
+  position: sticky;
+  top: 0;
+  box-shadow: 0 2px 6px #000000e0;
+  display: flex;
+  align-items: flex-end;
+  background-color: var(--box);
+}
+.users_body {
+  height: calc(100% - 66px);
+  padding: 8px;
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.users_cards {
+  display: flex;
+  width: 100%;
+  gap: 8px;
+  flex-direction: column;
+}
+.user_card {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: var(--secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.user_card_flag {
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+}
+
+.card_flag_online {
+  background-color: #0f0;
+}
+
+.card_flag_offline {
+  background-color: #f00;
+}

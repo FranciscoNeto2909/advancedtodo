@@ -4,13 +4,24 @@ import TasksContainer from "../../components/tasksContainer/TasksContainer";
 import Wellcome from "../../components/welcome/Wellcome";
 import Input from "../../components/input/Input";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Loading from "../../components/loading/Loading";
 
 export default function Home() {
-  const isLogged = useSelector(data => data.User.isLogged);
+  const isLogged = useSelector(data => data.User.user.isLogged);
+  const [loading, setLoading] = useState(true);
+  const [timeExpired, setTimeExpired] = useState(false);
   const tasks = useSelector(data => data.Tasks.tasks);
 
-  useEffect(() => {}, [tasks]);
+  setTimeout(() => {
+    setTimeExpired(true)
+  }, 3000);
+
+  useEffect(() => {
+    if (tasks.length || timeExpired) {
+      setLoading(false);
+    }
+  }, [tasks, timeExpired]);
 
   return (
     <div className="home">
@@ -21,7 +32,9 @@ export default function Home() {
         </div>
       </div>
       <div className="home_body">
-        {!isLogged ? <Wellcome /> : <TasksContainer tasks={tasks} />}
+        {loading && <Loading />}
+        {!loading &&
+          (!isLogged ? <Wellcome /> : <TasksContainer tasks={tasks} />)}
       </div>
     </div>
   );

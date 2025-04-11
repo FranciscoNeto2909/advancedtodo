@@ -4,8 +4,9 @@ import "./task.css"
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { deleteTask, getTasks } from "../../assets/tasksSlice";
+import { setMsg } from "../../assets/AppSlice";
 
-export default function Task({ task }) {
+export default function Task({ task,  setEditingTask, setTask }) {
   const dispatch = useDispatch()
 
   const [taskColor, setTaskColor] = useState("")
@@ -20,9 +21,17 @@ export default function Task({ task }) {
     }
   }
 
-  function handleDeleteTask() {
+  function handleEditingTask() {
+    setEditingTask(true)
+    setTask(task)
+  }
+
+  function handleDeleteTask(msg) {
     dispatch(deleteTask(task.id))
-    .then(() => dispatch(getTasks()))
+    .then(() => dispatch(setMsg( msg == "delete" ? "Tarefa apagada" : "Tarefa concluida")))
+    setTimeout(() => {
+      dispatch(getTasks())
+    }, 2500);
   }
 
   useEffect(() => {
@@ -34,13 +43,13 @@ export default function Task({ task }) {
       <h3 className="task_title">{task.title}</h3>
       <p className="task_desc">{task.desc}</p>
       <div className="task_buttons">
-        <Button onClick={() => {}}>
+        <Button onClick={ () => handleDeleteTask("")}>
           <AiOutlineCheck size={26} className="task_icon_check" />
         </Button>
-        <Button onClick={() => {}}>
+        <Button onClick={handleEditingTask}>
           <AiOutlineEdit size={26} className="task_icon_edit" />
         </Button>
-        <Button onClick={handleDeleteTask}>
+        <Button onClick={() => handleDeleteTask("delete")}>
           <AiOutlineClose size={26} className="task_icon_close" />
         </Button>
       </div>

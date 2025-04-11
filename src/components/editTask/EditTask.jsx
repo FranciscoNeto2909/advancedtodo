@@ -4,7 +4,7 @@ import "./editTask.css";
 import { useEffect, useState } from "react";
 import Input from "../input/Input";
 import { useDispatch } from "react-redux";
-import { updateTask } from "../../assets/TasksSlice";
+import { updateTask } from "../TasksSlice";
 import { setMsg } from "../../assets/AppSlice";
 import { useNavigate } from "react-router-dom";
 
@@ -44,7 +44,7 @@ export default function EditTask({ setEditingTask, task }) {
     dispatch(updateTask(newTask)).then(() =>
       dispatch(setMsg("Tarefa atualizada"))
     );
-    setEditingTask(false)
+    setEditingTask(false);
     setTimeout(() => {
       navigate(0);
     }, 1000);

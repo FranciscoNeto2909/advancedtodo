@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { api } from "../assets/api";
 
-
 export const createUser = createAsyncThunk("createUser", async user => {
   try {
     await api.post("users/", user).then(data => data.status);
@@ -24,11 +23,13 @@ export const login = createAsyncThunk("login", async user => {
 
 export const userLogout = createAsyncThunk("userLogout", async userId => {
   try {
-    const res = await api.put(`users/logout/${userId}`);
+    const res = await api
+      .put(`users/logout/${userId}`)
+      .then(() => localStorage.clear());
     const data = res.data;
     return data;
   } catch (err) {
-    // localStorage.clear();
+    localStorage.clear();
     throw new Error(err.response?.data?.message || "Erro ao fazer logout");
   }
 });

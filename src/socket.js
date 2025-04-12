@@ -1,6 +1,7 @@
 
 import { io } from 'socket.io-client';
+import { serverUrl } from './assets/api';
 
-const URL = process.env.NODE_ENV === 'production' ? undefined : 'http://localhost:3000';
+const URL = serverUrl;
 
 export const socket = io.connect(URL);

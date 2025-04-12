@@ -5,6 +5,7 @@ import "./newTask.css";
 import { postTask } from "../../assets/tasksSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setMsg } from "../../assets/AppSlice";
 
 export default function NewTask() {
   const dispatch = useDispatch();
@@ -50,6 +51,7 @@ export default function NewTask() {
   }
 
   function handleCreateNewTask(e) {
+    e.preventDefault()
     if (newTask.title === "") {
       setErrors({ ...errors, title: true });
       setTimeout(() => {
@@ -66,8 +68,11 @@ export default function NewTask() {
         setErrors({ ...errors, urgency: false });
       }, 2000);
     } else {
-      console.log("tarefa criada status:200");
-      dispatch(postTask(newTask)).then(() => navigate("/"));
+      dispatch(postTask(newTask))
+      .then(() =>{ 
+        dispatch(setMsg('Tarefa criada'))
+        navigate(0)
+      });
     }
   }
 

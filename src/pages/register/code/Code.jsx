@@ -17,6 +17,7 @@ export default function Code() {
 
   function handleSetCode(e) {
     e.preventDefault();
+    console.log(app.authCode)
     if (code !== app.authCode) {
       setCodeError(true);
       setTimeout(() => {
@@ -28,6 +29,7 @@ export default function Code() {
       }, 1000);
     }
   }
+  
   return (
     <div className="code">
       <div className="code_header">

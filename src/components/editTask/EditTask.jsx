@@ -4,7 +4,7 @@ import "./editTask.css";
 import { useEffect, useState } from "react";
 import Input from "../input/Input";
 import { useDispatch } from "react-redux";
-import { updateTask } from "../TasksSlice";
+import { updateTask } from "../../assets/TasksSlice";
 import { setMsg } from "../../assets/AppSlice";
 import { useNavigate } from "react-router-dom";
 

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Task from "../task/Task";
-import "./TasksContainer.css";
 import { ImArrowLeft } from "react-icons/im";
 import EditTask from "../editTask/EditTask";
+import "./tasksContainer.css";
 
 export default function TasksContainer({ tasks }) {
   const sortedTask = [...tasks].sort((a, b) => a.urgency - b.urgency);

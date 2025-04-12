@@ -19,8 +19,10 @@ export default function Navbar() {
 
   function handleLogout() {
     dispatch(userLogout(user.id));
-    navigate("/");
     setImage(defImg);
+    setTimeout(() => {
+      navigate(0);
+    }, 1000);
   }
 
   function handleSetUserImage() {

@@ -23,10 +23,9 @@ export const login = createAsyncThunk("login", async user => {
 
 export const userLogout = createAsyncThunk("userLogout", async userId => {
   try {
-    const res = await api
-      .put(`users/logout/${userId}`)
-      .then(() => localStorage.clear());
+    const res = await api.put(`users/logout/${userId}`);
     const data = res.data;
+    localStorage.clear();
     return data;
   } catch (err) {
     localStorage.clear();

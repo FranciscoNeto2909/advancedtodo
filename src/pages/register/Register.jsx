@@ -6,7 +6,7 @@ import Button from "../../components/button/Button";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { emailAuth } from "../../slices/UserSlice";
-import { setAuthCode } from "../../slices/AppSlice";
+import { setAuthCode, setMsg } from "../../slices/AppSlice";
 
 export default function Register({ newUser, setNewUser }) {
   const emailRegex = new RegExp(
@@ -62,7 +62,8 @@ export default function Register({ newUser, setNewUser }) {
           email: loginData.email,
           code: code,
         })
-      ).then(() => {
+      ).then(data => {
+        dispatch(setMsg(data.payload))
         setTimeout(() => {
           navigate("/register/code");
         }, 2000);

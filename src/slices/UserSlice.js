@@ -35,11 +35,9 @@ export const userLogout = createAsyncThunk("userLogout", async userId => {
 
 export const emailAuth = createAsyncThunk("emailAuth", async email => {
   try {
-    const res = await api
-      .post("emailAuth", email)
-      .then(data => data)
-      .catch(err => err);
-    return res;
+    const res = await api.post("emailAuth", email)
+    const data = res.data;
+    return data;
   } catch (error) {
     console.log(error);
   }

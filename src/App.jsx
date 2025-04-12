@@ -46,7 +46,6 @@ function App() {
 
   useEffect(() => {
     navigate("/");
-    dispatch(getUsers());
     if (token !== null && id !== null) {
       dispatch(getUser(id));
     }

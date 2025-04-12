@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import "./users.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from "../../slices/AppSlice";
 
 export default function Users() {
+  const dispatch = useDispatch()
   const [users, setUsers] = useState([]);
   const data = useSelector(data => data.App.users);
 
   useEffect(() => {
+    dispatch(getUsers())
     setUsers(data)
   }, [data]);
 

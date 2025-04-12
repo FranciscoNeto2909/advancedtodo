@@ -1,13 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
-import { AiOutlineLogout, AiOutlineLogin, AiOutlineUser } from "react-icons/ai";
+import { AiOutlineLogout, AiOutlineLogin } from "react-icons/ai";
 import { RiAddLargeLine } from "react-icons/ri";
-import logo from "../../images/logo.png";
 import { useDispatch, useSelector } from "react-redux";
-import { userLogout } from "../../slices/userSlice";
-import "./navbar.css";
+import { userLogout } from "../../slices/UserSlice";
 import { HiOutlineUsers } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import { serverUrl } from "../../assets/api";
+import logo from "../../images/logo.png";
+import "./navbar.css";
 
 export default function Navbar() {
   const defImg =

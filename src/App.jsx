@@ -5,17 +5,17 @@ import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import Profile from "./pages/profile/Profile";
 import NewTask from "./pages/newTask/NewTask";
-import Navbar from "./components/navbar/NavBar";
+import Navbar from "./components/navbar/Navbar";
 import Register from "./pages/register/Register";
 import Password from "./pages/register/password/Password";
 import Code from "./pages/register/code/Code";
 import Notice from "./components/notice/Notice";
-import "./App.css";
 import { socket } from "./socket";
 import { clearMsg, getUsers, setMsg } from "./slices/AppSlice";
 import { getTasks } from "./slices/TasksSlice";
 import { getUser } from "./slices/UserSlice";
 import Users from "./pages/users/Users";
+import "./App.css";
 
 function App() {
   const token = localStorage.getItem("token");

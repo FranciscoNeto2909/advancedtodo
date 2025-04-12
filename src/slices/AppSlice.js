@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { api } from "./api";
+import { api } from "../assets/api";
 
 export const getUsers = createAsyncThunk("getUsers", async () => {
   try {

@@ -4,8 +4,8 @@ import "./editTask.css";
 import { useEffect, useState } from "react";
 import Input from "../input/Input";
 import { useDispatch } from "react-redux";
-import { updateTask } from "../../assets/TasksSlice";
-import { setMsg } from "../../assets/AppSlice";
+import { updateTask } from "../../slices/TasksSlice";
+import { setMsg } from "../../slices/AppSlice";
 import { useNavigate } from "react-router-dom";
 
 export default function EditTask({ setEditingTask, task }) {

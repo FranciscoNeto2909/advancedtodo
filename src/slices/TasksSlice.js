@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { api } from "../assets/api";
 
+
 export const getTasks = createAsyncThunk("getTasks", async () => {
   try {
     const res = await api

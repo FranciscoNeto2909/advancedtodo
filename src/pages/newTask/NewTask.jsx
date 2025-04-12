@@ -2,10 +2,10 @@ import { useState } from "react";
 import Button from "../../components/button/Button";
 import Input from "../../components/input/Input";
 import "./newTask.css";
-import { postTask } from "../../assets/tasksSlice";
+import { postTask } from "../../slices/TasksSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setMsg } from "../../assets/AppSlice";
+import { setMsg } from "../../slices/AppSlice";
 
 export default function NewTask() {
   const dispatch = useDispatch();

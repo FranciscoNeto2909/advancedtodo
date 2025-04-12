@@ -3,8 +3,8 @@ import Button from "../button/Button";
 import "./task.css"
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { deleteTask, getTasks } from "../../assets/tasksSlice";
-import { setMsg } from "../../assets/AppSlice";
+import { deleteTask, getTasks } from "../../slices/TasksSlice";
+import { setMsg } from "../../slices/AppSlice";
 
 export default function Task({ task,  setEditingTask, setTask }) {
   const dispatch = useDispatch()

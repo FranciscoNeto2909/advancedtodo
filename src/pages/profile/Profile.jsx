@@ -5,13 +5,13 @@ import {
   getUser,
   setUserImage,
   updateUser,
-} from "../../assets/userSlice";
+} from "../../slices/UserSlice";
 import { serverUrl } from "../../assets/api";
 import { useEffect, useState } from "react";
 import "./profile.css";
 import Button from "../../components/button/Button";
 import Input from "../../components/input/Input";
-import { setAuthCode, setMsg } from "../../assets/AppSlice";
+import { setAuthCode, setMsg } from "../../slices/AppSlice";
 import { hash } from "bcryptjs";
 
 export default function Profile() {

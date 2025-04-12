@@ -4,10 +4,10 @@ import Input from "../../../components/input/Input";
 import Button from "../../../components/button/Button";
 import { useState } from "react";
 import { hash } from "bcryptjs";
-import { createUser } from "../../../assets/userSlice";
+import { createUser } from "../../../slices/UserSlice";
 import { useDispatch } from "react-redux";
 import "./password.css";
-import { setMsg } from "../../../assets/AppSlice";
+import { setMsg } from "../../../slices/AppSlice";
 
 export default function Password({ newUser }) {
   const dispatch = useDispatch();

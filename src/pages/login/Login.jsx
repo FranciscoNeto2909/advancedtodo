@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { setMsg } from "../../assets/AppSlice";
-import { login, getUser } from "../../assets/userSlice";
+import { setMsg } from "../../slices/AppSlice";
+import { login, getUser } from "../../slices/UserSlice";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";

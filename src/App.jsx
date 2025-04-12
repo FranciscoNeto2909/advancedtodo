@@ -12,9 +12,9 @@ import Code from "./pages/register/code/Code";
 import Notice from "./components/notice/Notice";
 import "./App.css";
 import { socket } from "./socket";
-import { clearMsg, getUsers, setMsg } from "./assets/AppSlice";
-import { getTasks } from "./assets/tasksSlice";
-import { getUser } from "./assets/userSlice";
+import { clearMsg, getUsers, setMsg } from "./slices/AppSlice";
+import { getTasks } from "./slices/TasksSlice";
+import { getUser } from "./slices/UserSlice";
 import Users from "./pages/users/Users";
 
 function App() {

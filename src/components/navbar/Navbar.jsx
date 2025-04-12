@@ -3,7 +3,7 @@ import { AiOutlineLogout, AiOutlineLogin, AiOutlineUser } from "react-icons/ai";
 import { RiAddLargeLine } from "react-icons/ri";
 import logo from "../../images/logo.png";
 import { useDispatch, useSelector } from "react-redux";
-import { userLogout } from "../../assets/userSlice";
+import { userLogout } from "../../slices/userSlice";
 import "./navbar.css";
 import { HiOutlineUsers } from "react-icons/hi";
 import { useEffect, useState } from "react";

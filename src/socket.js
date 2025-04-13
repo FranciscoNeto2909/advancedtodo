@@ -8,5 +8,7 @@ export const socket = io(serverUrl, {
 
 export const socket_types = {
   message:"message",
-  user:"set_username"
+  user:"set_username",
+  login:"login",
+  task:"task"
 }

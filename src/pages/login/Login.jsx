@@ -52,12 +52,13 @@ export default function Login() {
           .then(e => {
             dispatch(
               emitMsg({
-                type: socket_types.message,
+                type: socket_types.login,
                 msg: {
-                  text: "bem vindo",
+                  type:socket_types.login,
+                  text:"bem vindo",
                   name: e.payload.name,
                   id: e.payload.id,
-                },
+                }
               })
             );
           });

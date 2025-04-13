@@ -3,14 +3,16 @@ import Button from "../button/Button";
 import "./editTask.css";
 import { useEffect, useState } from "react";
 import Input from "../input/Input";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateTask } from "../../slices/TasksSlice";
-import { setMsg } from "../../slices/AppSlice";
+import { emitMsg, setMsg } from "../../slices/AppSlice";
 import { useNavigate } from "react-router-dom";
+import { socket_types } from "../../socket";
 
 export default function EditTask({ setEditingTask, task }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector(data => data.User.user);
   const [newTask, setNewTask] = useState({ ...task });
   const [buttons, setButtons] = useState({
     b1: task.urgency == 1 ? true : false,
@@ -42,7 +44,16 @@ export default function EditTask({ setEditingTask, task }) {
   function handleSaveTask(e) {
     e.preventDefault();
     dispatch(updateTask(newTask)).then(() =>
-      dispatch(setMsg("Tarefa atualizada"))
+      dispatch(
+        emitMsg({
+          type: socket_types.task,
+          msg: {
+            type: socket_types.task,
+            id: user.id,
+            name:user.name
+          },
+        })
+      )
     );
     setEditingTask(false);
     setTimeout(() => {

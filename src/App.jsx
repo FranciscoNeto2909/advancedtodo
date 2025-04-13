@@ -10,7 +10,7 @@ import Register from "./pages/register/Register";
 import Password from "./pages/register/password/Password";
 import Code from "./pages/register/code/Code";
 import Notice from "./components/notice/Notice";
-import { socket } from "./socket";
+import { socket, socket_types } from "./socket";
 import { clearMsg, getUsers, setMsg } from "./slices/AppSlice";
 import { getTasks } from "./slices/TasksSlice";
 import { getUser } from "./slices/UserSlice";
@@ -36,14 +36,21 @@ function App() {
 
   useEffect(() => {
     socket.on("receive_message", async data => {
-     if(current.isLogged)
-      { if (data.text.id == current.id) {
-        dispatch(setMsg(`seja bem vindo ${data.text.name}`));
-      } else if (data.text.id != current.id){
-        dispatch(setMsg(`${data.text.name} se conectou`));
-      } else if (data.text.id === undefined){
+      if (data.text.type == socket_types.login) {
+        if (data.text.id == current.id) {
+          dispatch(setMsg(`seja bem vindo ${data.text.name}`));
+        } else if (data.text.id != current.id) {
+          dispatch(setMsg(`${data.text.name} se conectou`));
+        }
+      } else if (data.text.type == socket_types.task) {
+        if (data.text.id == current.id) {
+          dispatch(setMsg("tarefa atualizada"));
+        } else if (data.text.id != current.id) {
+          dispatch(setMsg(`${data.text.name} atualizou a tarefa`));
+        }
+      } else if (data.text.type == socket_types.message) {
         dispatch(setMsg(data.text.text));
-      }}
+      }
     });
 
     return () => {

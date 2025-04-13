@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { api } from "../assets/api";
+import { socket } from "../socket";
 
 export const getUsers = createAsyncThunk("getUsers", async () => {
   try {
@@ -16,6 +17,7 @@ const AppSlice = createSlice({
   initialState: {
     notice: "",
     hasNotice: false,
+    hasEmit:false,
     authCode: "",
     users: [],
   },
@@ -26,8 +28,15 @@ const AppSlice = createSlice({
     setMsg: (state, { payload }) => {
       return { ...state, notice: payload, hasNotice: true };
     },
+    emitMsg: (state, { payload }) => {
+      socket.emit(payload.type, payload.msg)
+      return { ...state, hasNotice: true };
+    },
     clearMsg: state => {
       return { ...state, notice: "", hasNotice: false };
+    },
+    clearEmit: state => {
+      return { ...state, hasEmit: false };
     },
     setAuthCode: (state, { payload }) => {
       return { ...state, authCode: payload };
@@ -45,6 +54,6 @@ const AppSlice = createSlice({
   },
 });
 
-export const { hideMsg, setMsg, clearMsg, setAuthCode } = AppSlice.actions;
+export const { hideMsg, setMsg,emitMsg, clearEmit, clearMsg, setAuthCode } = AppSlice.actions;
 
 export default AppSlice.reducer;

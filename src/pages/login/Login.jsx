@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { setMsg } from "../../slices/AppSlice";
+import { emitMsg, setMsg } from "../../slices/AppSlice";
 import { login, getUser } from "../../slices/UserSlice";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
 import "./login.css";
+import { socket_types } from "../../socket";
 
 export default function Login() {
-  const appUser = useSelector((data) => data.User.user);
+  const appUser = useSelector(data => data.User.user);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -43,19 +44,28 @@ export default function Login() {
         setErros({ ...errors, password: false });
       }, 2000);
     } else if (user) {
-      dispatch(login(user))
-        .then((e) => {
-          if (e.payload.error == false) {
-            const userId = e.payload.userId;
-            localStorage.setItem("userId", userId.toString());
-            dispatch(getUser(userId.toString())).then((e) => {
-              dispatch(setMsg(`Seja bem vindo ${e.payload.name} `))
-            })
-            navigate("/");
-          }})}
+      dispatch(login(user)).then(e => {
+        if (e.payload.error == false) {
+          const userId = e.payload.userId;
+          localStorage.setItem("userId", userId.toString());
+          dispatch(getUser(userId.toString()))
+          .then(e => {
+            dispatch(
+              emitMsg({
+                type: socket_types.message,
+                msg: {
+                  text: "bem vindo",
+                  name: e.payload.name,
+                  id: e.payload.id,
+                },
+              })
+            );
+          });
+          navigate("/");
+        }
+      });
+    }
   }
-
-
   return (
     <div className="login">
       <div className="login_header">
@@ -76,7 +86,7 @@ export default function Login() {
                 Email
               </label>
               <Input
-                onChange={(e) => handleChangeEmail(e)}
+                onChange={e => handleChangeEmail(e)}
                 type="email"
                 id="email"
               />
@@ -90,7 +100,7 @@ export default function Login() {
               </label>
               <Input
                 type="password"
-                onChange={(e) => handleChangePassword(e)}
+                onChange={e => handleChangePassword(e)}
                 id="password"
               />
               {errors.password && (

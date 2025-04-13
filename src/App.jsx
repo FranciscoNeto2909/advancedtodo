@@ -36,13 +36,19 @@ function App() {
 
   useEffect(() => {
     socket.on("receive_message", async data => {
-      dispatch(setMsg(data.text));
+      if (data.text.id == current.id) {
+        dispatch(setMsg(`seja bem vindo ${data.text.name}`));
+      } else if (data.text.id != current.id){
+        dispatch(setMsg(`${data.text.name} se conectou`));
+      } else if (data.text.id === undefined){
+        dispatch(setMsg(data.text.text));
+      }
     });
 
     return () => {
       socket.off("receive_message");
     };
-  }, [socket]);
+  }, [socket, current]);
 
   useEffect(() => {
     navigate("/");

@@ -36,13 +36,14 @@ function App() {
 
   useEffect(() => {
     socket.on("receive_message", async data => {
-      if (data.text.id == current.id) {
+     if(current.isLogged)
+      { if (data.text.id == current.id) {
         dispatch(setMsg(`seja bem vindo ${data.text.name}`));
       } else if (data.text.id != current.id){
         dispatch(setMsg(`${data.text.name} se conectou`));
       } else if (data.text.id === undefined){
         dispatch(setMsg(data.text.text));
-      }
+      }}
     });
 
     return () => {

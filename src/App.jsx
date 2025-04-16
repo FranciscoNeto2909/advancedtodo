@@ -24,6 +24,7 @@ function App() {
   const dispatch = useDispatch();
   const app = useSelector(data => data.App);
   const current = useSelector(data => data.User.user);
+  
   const [newUser, setNewUser] = useState({
     name: "",
     email: "",

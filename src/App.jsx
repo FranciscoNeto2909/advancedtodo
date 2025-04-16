@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import Profile from "./pages/profile/Profile";
@@ -10,23 +10,20 @@ import Register from "./pages/register/Register";
 import Password from "./pages/register/password/Password";
 import Code from "./pages/register/code/Code";
 import Notice from "./components/notice/Notice";
-import { socket, socket_types } from "./socket";
-import { clearMsg, getUsers, setMsg } from "./slices/AppSlice";
+import { socket, SocketListener } from "./socket";
+import { clearMsg, setMsg } from "./slices/AppSlice";
 import { getTasks } from "./slices/TasksSlice";
 import { getUser } from "./slices/UserSlice";
 import Users from "./pages/users/Users";
 import "./App.css";
+import PrivateRoute from "./components/privateRoute/PrivateRoute";
 
 function App() {
   const token = localStorage.getItem("token");
   const id = localStorage.getItem("userId");
-
   const dispatch = useDispatch();
   const app = useSelector(data => data.App);
   const current = useSelector(data => data.User.user);
-
-  const navigate = useNavigate();
-
   const [newUser, setNewUser] = useState({
     name: "",
     email: "",
@@ -35,42 +32,28 @@ function App() {
   });
 
   useEffect(() => {
-    socket.on("receive_message", async data => {
-      if (data.text.type == socket_types.login) {
-        if (data.text.id == current.id) {
-          dispatch(setMsg(`seja bem vindo ${data.text.name}`));
-        } else if (data.text.id != current.id) {
-          dispatch(setMsg(`${data.text.name} se conectou`));
-        }
-      } else if (data.text.type == socket_types.task) {
-        if (data.text.id == current.id) {
-          dispatch(setMsg("tarefa atualizada"));
-        } else if (data.text.id != current.id) {
-          dispatch(setMsg(`${data.text.name} atualizou a tarefa`));
-        }
-      } else if (data.text.type == socket_types.message) {
-        dispatch(setMsg(data.text.text));
-      }
-    });
-
+    SocketListener(dispatch, setMsg, current);
     return () => {
       socket.off("receive_message");
     };
-  }, [socket, current]);
+  }, [current]);
 
   useEffect(() => {
-    navigate("/");
+    dispatch(getTasks());
     if (token !== null && id !== null) {
       dispatch(getUser(id));
     }
-    dispatch(getTasks());
   }, []);
 
-  if (app.hasNotice) {
-    setTimeout(() => {
-      dispatch(clearMsg());
-    }, 2500);
-  }
+  useEffect(() => {
+    let timer;
+    if (app.hasNotice) {
+      timer = setTimeout(() => {
+        dispatch(clearMsg());
+      }, 2500);
+    }
+    return () => clearTimeout(timer);
+  }, [app.hasNotice]);
 
   return (
     <div className="app">
@@ -80,9 +63,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/newTask" element={<NewTask />} />
+          <Route path="/profile" element={<PrivateRoute>{<Profile />}</PrivateRoute>} />
+          <Route
+            path="/users"
+            element={<PrivateRoute>{<Users />}</PrivateRoute>}
+          />
+          <Route path="/newTask" element={<PrivateRoute>{<NewTask />}</PrivateRoute>} />
           <Route
             path="/register"
             element={<Register newUser={newUser} setNewUser={setNewUser} />}

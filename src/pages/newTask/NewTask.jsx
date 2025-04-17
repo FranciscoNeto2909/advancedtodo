@@ -82,6 +82,7 @@ export default function NewTask() {
           })
         );
       });
+      setTimeout(() => navigate("/"), 1500);
     }
   }
 

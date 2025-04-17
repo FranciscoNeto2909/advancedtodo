@@ -1,7 +1,7 @@
 import { AiOutlineClose } from "react-icons/ai";
 import Button from "../button/Button";
 import "./editTask.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Input from "../input/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { updateTask } from "../../slices/TasksSlice";
@@ -50,7 +50,7 @@ export default function EditTask({ setEditingTask, task }) {
           msg: {
             type: socket_types.task,
             id: user.id,
-            name:user.name
+            name: user.name,
           },
         })
       )

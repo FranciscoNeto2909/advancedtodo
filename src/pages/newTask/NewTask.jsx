@@ -3,13 +3,15 @@ import Button from "../../components/button/Button";
 import Input from "../../components/input/Input";
 import "./newTask.css";
 import { postTask } from "../../slices/TasksSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setMsg } from "../../slices/AppSlice";
+import { emitMsg, setMsg } from "../../slices/AppSlice";
+import { socket_types } from "../../socket";
 
 export default function NewTask() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector(data => data.User.user);
 
   const [newTask, setNewTask] = useState({
     title: "",
@@ -51,7 +53,7 @@ export default function NewTask() {
   }
 
   function handleCreateNewTask(e) {
-    e.preventDefault()
+    e.preventDefault();
     if (newTask.title === "") {
       setErrors({ ...errors, title: true });
       setTimeout(() => {
@@ -68,10 +70,17 @@ export default function NewTask() {
         setErrors({ ...errors, urgency: false });
       }, 2000);
     } else {
-      dispatch(postTask(newTask))
-      .then(() =>{ 
-        dispatch(setMsg('Tarefa criada'))
-        navigate(0)
+      dispatch(postTask(newTask)).then(() => {
+        dispatch(
+          emitMsg({
+            type: socket_types.createdTask,
+            msg: {
+              type: socket_types.createdTask,
+              id: user.id,
+              name: user.name,
+            },
+          })
+        );
       });
     }
   }

@@ -55,6 +55,7 @@ export default function Login() {
           });
           navigate("/");
         } else {
+          setErros({email:true, password:true})
           dispatch(setMsg(e.payload.response.data.msg));
         }
       });

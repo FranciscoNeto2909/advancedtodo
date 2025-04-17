@@ -10,14 +10,13 @@ export default function Code() {
   const Navigate = useNavigate();
   const [code, setCode] = useState("");
   const [codeError, setCodeError] = useState(false);
-  const app = useSelector((data) => data.App);
+  const app = useSelector(data => data.App);
   function handleChangeCode(e) {
     setCode(e.target.value);
   }
 
   function handleSetCode(e) {
     e.preventDefault();
-    console.log(app.authCode)
     if (code !== app.authCode) {
       setCodeError(true);
       setTimeout(() => {
@@ -29,7 +28,7 @@ export default function Code() {
       }, 1000);
     }
   }
-  
+
   return (
     <div className="code">
       <div className="code_header">
@@ -55,7 +54,7 @@ export default function Code() {
                 Código
               </label>
               <Input
-                onChange={(e) => handleChangeCode(e)}
+                onChange={e => handleChangeCode(e)}
                 type="text"
                 id="code"
               />

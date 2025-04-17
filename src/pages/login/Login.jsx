@@ -66,7 +66,6 @@ export default function Login() {
       setErros({ email: false, password: false });
     }, 2000);
   }, [errors]);
-  
   return (
     <div className="login">
       <div className="login_header">

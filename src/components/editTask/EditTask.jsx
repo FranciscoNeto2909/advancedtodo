@@ -46,9 +46,9 @@ export default function EditTask({ setEditingTask, task }) {
     dispatch(updateTask(newTask)).then(() =>
       dispatch(
         emitMsg({
-          type: socket_types.task,
+          type: socket_types.editedTask,
           msg: {
-            type: socket_types.task,
+            type: socket_types.editedTask,
             id: user.id,
             name: user.name,
           },
@@ -58,7 +58,7 @@ export default function EditTask({ setEditingTask, task }) {
     setEditingTask(false);
     setTimeout(() => {
       navigate(0);
-    }, 1000);
+    }, 1500);
   }
 
   return (

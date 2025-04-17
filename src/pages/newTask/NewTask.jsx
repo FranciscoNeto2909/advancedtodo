@@ -5,7 +5,7 @@ import "./newTask.css";
 import { postTask } from "../../slices/TasksSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { emitMsg, setMsg } from "../../slices/AppSlice";
+import { emitMsg } from "../../slices/AppSlice";
 import { socket_types } from "../../socket";
 
 export default function NewTask() {

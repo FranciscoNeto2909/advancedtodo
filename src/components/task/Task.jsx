@@ -4,22 +4,16 @@ import "./task.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTask, getTasks } from "../../slices/TasksSlice";
-import { emitMsg, setMsg } from "../../slices/AppSlice";
+import { emitMsg } from "../../slices/AppSlice";
 import { socket_types } from "../../socket";
 
 export default function Task({ task, setEditingTask, setTask }) {
   const dispatch = useDispatch();
-  const user = useSelector(data => data.User.user)
+  const user = useSelector(data => data.User.user);
   const [taskColor, setTaskColor] = useState("");
 
   function handleTaskColor() {
-    if (task.urgency == 1) {
-      setTaskColor("task-urgency1");
-    } else if (task.urgency == 2) {
-      setTaskColor("task-urgency2");
-    } else if (task.urgency == 3) {
-      setTaskColor("task-urgency3");
-    }
+   setTaskColor(taskColor[task.urgency] || "")
   }
 
   function handleEditingTask() {
@@ -50,12 +44,10 @@ export default function Task({ task, setEditingTask, setTask }) {
               name: user.name,
             },
           })
-        );
+        )
       }
-    });
-    setTimeout(() => {
       dispatch(getTasks());
-    }, 2500);
+    });
   }
 
   useEffect(() => {

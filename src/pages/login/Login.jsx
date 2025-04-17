@@ -46,7 +46,6 @@ export default function Login() {
                 type: socket_types.login,
                 msg: {
                   type: socket_types.login,
-                  text: "bem vindo",
                   name: e.payload.name,
                   id: e.payload.id,
                 },

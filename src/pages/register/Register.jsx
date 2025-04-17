@@ -9,9 +9,8 @@ import { emailAuth } from "../../slices/UserSlice";
 import { setAuthCode, setMsg } from "../../slices/AppSlice";
 
 export default function Register({ newUser, setNewUser }) {
-  const emailRegex = new RegExp(
-    "^[_a-z0-9-]+([_a-z0-9-]+)*@[a-z0-9-]+([a-z0-9-]+).([a-z]{2,3})$"
-  );
+  const emailRegex = /^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/
+
   const [loginData, setLoginData] = useState({
     email: "",
     code: "",

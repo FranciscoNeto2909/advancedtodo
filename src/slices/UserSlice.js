@@ -17,7 +17,7 @@ export const login = createAsyncThunk("login", async user => {
       .catch(err => err);
     return res;
   } catch (err) {
-    console.log(err);
+    return(err);
   }
 });
 

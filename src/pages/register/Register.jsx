@@ -7,9 +7,9 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { emailAuth } from "../../slices/UserSlice";
 import { setAuthCode, setMsg } from "../../slices/AppSlice";
+import { emailRegex } from "../../validate";
 
 export default function Register({ newUser, setNewUser }) {
-  const emailRegex = /^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/  
 
   const [loginData, setLoginData] = useState({
     email: "",

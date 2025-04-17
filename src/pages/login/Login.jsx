@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { emitMsg, setMsg } from "../../slices/AppSlice";
@@ -8,14 +8,13 @@ import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
 import "./login.css";
 import { socket_types } from "../../socket";
+import { emailRegex } from "../../validate";
 
 export default function Login() {
   const appUser = useSelector(data => data.User.user);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const emailRegex = /^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/  
-
 
   const [user, setUser] = useState({ email: "", password: "" });
   const [errors, setErros] = useState({
@@ -34,38 +33,40 @@ export default function Login() {
     e.preventDefault();
     if (!emailRegex.test(user.email)) {
       setErros({ ...errors, email: true });
-      setTimeout(() => {
-        setErros({ ...errors, email: false });
-      }, 2000);
     } else if (user.password == "") {
       setErros({ ...errors, password: true });
-      setTimeout(() => {
-        setErros({ ...errors, password: false });
-      }, 2000);
     } else if (user) {
       dispatch(login(user)).then(e => {
         if (e.payload.error == false) {
           const userId = e.payload.userId;
           localStorage.setItem("userId", userId.toString());
-          dispatch(getUser(userId.toString()))
-          .then(e => {
+          dispatch(getUser(userId.toString())).then(e => {
             dispatch(
               emitMsg({
                 type: socket_types.login,
                 msg: {
-                  type:socket_types.login,
-                  text:"bem vindo",
+                  type: socket_types.login,
+                  text: "bem vindo",
                   name: e.payload.name,
                   id: e.payload.id,
-                }
+                },
               })
             );
           });
           navigate("/");
+        } else {
+          dispatch(setMsg(e.payload.response.data.msg));
         }
       });
     }
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      setErros({ email: false, password: false });
+    }, 2000);
+  }, [errors]);
+  
   return (
     <div className="login">
       <div className="login_header">
